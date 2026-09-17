@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-slate-100 antialiased;
+    background-image:
+      radial-gradient(60rem 60rem at 85% -10%, rgba(94, 234, 212, 0.12), transparent 60%),
+      radial-gradient(50rem 50rem at -10% 20%, rgba(167, 139, 250, 0.14), transparent 55%),
+      radial-gradient(40rem 40rem at 50% 110%, rgba(251, 113, 133, 0.08), transparent 60%);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  /* Base glass surface shared by every bento tile */
+  .glass-panel {
+    @apply relative rounded-3xl border border-surface-border bg-surface backdrop-blur-xl;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-panel-hover {
+    @apply transition-all duration-300 hover:bg-surface-hover hover:border-white/[0.14] hover:-translate-y-0.5;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-white/10;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
