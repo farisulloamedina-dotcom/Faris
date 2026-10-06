@@ -1,0 +1,8 @@
+@import "../app/globals.css";
+@source "../app";
+@source "../components";
+@source "../lib";
+
+:root {
+  --font-jakarta: "Plus Jakarta Sans";
+}

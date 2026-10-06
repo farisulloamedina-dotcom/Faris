@@ -12,6 +12,7 @@
  */
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useStore } from "@/lib/store/StoreProvider";
+import { useToast } from "@/components/ui/Toaster";
 import { buildWorkbookModel, type WorkbookModel } from "./model";
 import { buildWorkbookBlob, downloadBlob, workbookFileName } from "./export";
 import { parseWorkbook, type ImportReport } from "./import";
@@ -88,6 +89,7 @@ const ExcelSyncContext = createContext<ExcelSyncValue | null>(null);
 
 export function ExcelSyncProvider({ children }: { children: ReactNode }) {
   const { data, revision, hydrated } = useStore();
+  const toast = useToast();
   const model = useMemo(() => buildWorkbookModel(data), [data]);
   const modelRef = useRef(model);
   useEffect(() => {
@@ -101,8 +103,16 @@ export function ExcelSyncProvider({ children }: { children: ReactNode }) {
   const [linkError, setLinkError] = useState<string | null>(null);
   const [lastFileWriteAt, setLastFileWriteAt] = useState<string | null>(null);
   const [autoSave, setAutoSave] = useState(true);
-  // Solo se renderiza en cliente tras hidratar, así que la detección perezosa es segura
-  const [supportsFileLink] = useState(() => typeof window !== "undefined" && "showSaveFilePicker" in window);
+  // Solo se renderiza en cliente tras hidratar, así que la detección perezosa es segura.
+  // Dentro de un iframe (p. ej. el visor de claude.ai) la API de archivos está bloqueada.
+  const [supportsFileLink] = useState(() => {
+    if (typeof window === "undefined" || !("showSaveFilePicker" in window)) return false;
+    try {
+      return window.self === window.top;
+    } catch {
+      return false;
+    }
+  });
   const lastWrittenRevision = useRef<number>(-1);
 
   const totalRows = useMemo(
@@ -152,12 +162,13 @@ export function ExcelSyncProvider({ children }: { children: ReactNode }) {
     setExporting(true);
     try {
       const blob = await buildWorkbookBlob(modelRef.current);
-      downloadBlob(blob, workbookFileName());
-      setLastExportAt(new Date().toISOString());
+      if (await downloadBlob(blob, workbookFileName())) setLastExportAt(new Date().toISOString());
+    } catch (e) {
+      toast({ tone: "error", title: "No se pudo exportar", description: e instanceof Error ? e.message : "" });
     } finally {
       setExporting(false);
     }
-  }, []);
+  }, [toast]);
 
   const linkFile = useCallback(async () => {
     const picker = (window as unknown as { showSaveFilePicker?: SavePicker }).showSaveFilePicker;

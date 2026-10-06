@@ -135,7 +135,7 @@ function SyncTab() {
           />
           {!sync.supportsFileLink ? (
             <p className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm text-slate-500">
-              Tu navegador no soporta la API de acceso a archivos. Usa Chrome o Edge de escritorio para vincular un archivo con autoguardado; mientras tanto, usa <b>Descargar .xlsx</b> e <b>Importar</b>.
+              Vincular un archivo con autoguardado requiere abrir la app directamente en Chrome o Edge de escritorio (no está disponible en este navegador ni dentro de un visor incrustado). Mientras tanto, usa <b>Descargar .xlsx</b> e <b>Importar</b>.
             </p>
           ) : sync.linkedName ? (
             <div className="mt-4 space-y-4">

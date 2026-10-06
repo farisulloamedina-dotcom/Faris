@@ -342,7 +342,29 @@ export async function buildWorkbookBlob(model: WorkbookModel): Promise<Blob> {
 export const workbookFileName = (date = new Date()) =>
   `AuraWealth_Pro_${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}.xlsx`;
 
-export function downloadBlob(blob: Blob, filename: string) {
+interface DownloadsApi {
+  save: (req: { filename: string; data: Blob }) => Promise<unknown>;
+}
+type ClaudeHost = { use?: (name: "downloads") => Promise<DownloadsApi | null> };
+
+/**
+ * Entrega un archivo al usuario. Dentro del visor de artefactos de claude.ai
+ * (donde los enlaces de descarga están bloqueados) usa su capacidad `downloads`,
+ * que pide confirmación; en cualquier otro contexto, una descarga normal.
+ * Resuelve `false` si el usuario rechazó la descarga.
+ */
+export async function downloadBlob(blob: Blob, filename: string): Promise<boolean> {
+  const host = (window as unknown as { claude?: ClaudeHost }).claude;
+  const downloads = host?.use ? await host.use("downloads").catch(() => null) : null;
+  if (downloads) {
+    try {
+      await downloads.save({ filename, data: blob });
+      return true;
+    } catch (e) {
+      if ((e as { code?: string })?.code === "declined") return false;
+      throw new Error((e as { message?: string })?.message || "No se pudo guardar el archivo");
+    }
+  }
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -351,4 +373,5 @@ export function downloadBlob(blob: Blob, filename: string) {
   a.click();
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1500);
+  return true;
 }

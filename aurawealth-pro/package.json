@@ -9,7 +9,8 @@
     "start": "npx serve out",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test:excel": "tsx scripts/excel-roundtrip.test.ts"
+    "test:excel": "tsx scripts/excel-roundtrip.test.ts",
+    "build:artifact": "vite build --config artifact/vite.config.ts && node artifact/finalize.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -23,14 +24,18 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
+    "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^22.20.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.8",
     "postcss": "^8.5.29",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.23.15",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vite": "^8.3.3",
+    "vite-plugin-singlefile": "^2.3.3"
   }
 }

@@ -10,13 +10,13 @@ import { AppShell } from "@/components/layout/AppShell";
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <StoreProvider>
-      <ExcelSyncProvider>
-        <ToastProvider>
+      <ToastProvider>
+        <ExcelSyncProvider>
           <UIProvider>
             <AppShell>{children}</AppShell>
           </UIProvider>
-        </ToastProvider>
-      </ExcelSyncProvider>
+        </ExcelSyncProvider>
+      </ToastProvider>
     </StoreProvider>
   );
 }

@@ -13,10 +13,15 @@ npm run dev          # http://localhost:3000
 npm run build        # genera /out (sitio 100 % estático)
 npm start            # sirve /out
 npm run test:excel   # prueba de ida y vuelta: exportar → importar → comparar
+npm run build:artifact  # versión de un solo archivo HTML → dist-artifact/aurawealth-pro.html
 npm run lint && npm run typecheck
 ```
 
 En el primer uso se cargan datos de demostración (14 meses). Para empezar vacío, ve a **Excel → Respaldo → Empezar en blanco**.
+
+### Versión de un solo archivo
+
+`npm run build:artifact` usa Vite para empaquetar la misma app en un único HTML, con todo el JS y el CSS en línea (`artifact/`). Las rutas de Next.js se sustituyen por un enrutador en memoria (`artifact/router.ts`, más `next/link` y `next/navigation` simulados), y un ancla como `#metas` abre directamente ese módulo. Así se publica como artefacto de claude.ai. Dentro de ese visor, las descargas usan su capacidad `downloads`, que pide confirmación, y el archivo vinculado se desactiva porque el visor no permite la API de archivos.
 
 ## Módulos
 

@@ -36,7 +36,7 @@ export function BackupPanel() {
 
   function exportJSON() {
     const blob = new Blob([JSON.stringify({ app: "AuraWealth Pro", version: SCHEMA_VERSION, exportedAt: new Date().toISOString(), data }, null, 2)], { type: "application/json" });
-    downloadBlob(blob, `AuraWealth_Pro_Respaldo_${todayISO()}.json`);
+    void downloadBlob(blob, `AuraWealth_Pro_Respaldo_${todayISO()}.json`).catch((e) => toast({ tone: "error", title: "No se pudo descargar", description: e instanceof Error ? e.message : "" }));
   }
 
   async function importJSON(file: File | undefined) {

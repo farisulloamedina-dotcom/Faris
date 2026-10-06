@@ -150,7 +150,7 @@ export function ImportPanel() {
 
   async function downloadTemplate() {
     const blob = await buildWorkbookBlob(buildWorkbookModel(EMPTY_DATA));
-    downloadBlob(blob, "AuraWealth_Pro_Plantilla.xlsx");
+    await downloadBlob(blob, "AuraWealth_Pro_Plantilla.xlsx").catch((e) => toast({ tone: "error", title: "No se pudo descargar", description: e instanceof Error ? e.message : "" }));
   }
 
   return (
