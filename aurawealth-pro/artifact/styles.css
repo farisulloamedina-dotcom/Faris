@@ -4,5 +4,6 @@
 @source "../lib";
 
 :root {
-  --font-jakarta: "Plus Jakarta Sans";
+  --font-plex: "IBM Plex Sans";
+  --font-serif-display: "Source Serif 4";
 }

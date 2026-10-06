@@ -39,7 +39,7 @@ export function ImportReview({ report, onDone, onCancel }: { report: ImportRepor
       <div className="flex flex-wrap items-center gap-3 rounded-2xl bg-emerald-50 p-4 ring-1 ring-emerald-100">
         <FileSpreadsheet className="text-emerald-600" />
         <div className="min-w-0 flex-1">
-          <p className="truncate font-bold text-slate-900">{report.fileName}</p>
+          <p className="truncate font-semibold text-slate-900">{report.fileName}</p>
           <p className="text-xs text-slate-500">
             {report.totals.transactions} movimientos · {report.totals.debts} deudas · {report.totals.receivables} cuentas por cobrar · {report.totals.goals} metas · {report.totals.history} movimientos de historial
           </p>
@@ -48,7 +48,7 @@ export function ImportReview({ report, onDone, onCancel }: { report: ImportRepor
 
       <div className="overflow-hidden rounded-2xl ring-1 ring-slate-200">
         <table className="w-full text-sm">
-          <thead className="bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+          <thead className="bg-slate-50 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
             <tr>
               <th className="px-4 py-2 text-left">Hoja</th>
               <th className="px-4 py-2 text-center">Estado</th>
@@ -79,8 +79,8 @@ export function ImportReview({ report, onDone, onCancel }: { report: ImportRepor
                     </Badge>
                   )}
                 </td>
-                <td className="tabular px-4 py-2 text-right font-bold text-emerald-600">{s.imported}</td>
-                <td className={cn("tabular px-4 py-2 text-right font-bold", s.skipped ? "text-amber-600" : "text-slate-300")}>{s.skipped}</td>
+                <td className="tabular px-4 py-2 text-right font-semibold text-emerald-600">{s.imported}</td>
+                <td className={cn("tabular px-4 py-2 text-right font-semibold", s.skipped ? "text-amber-600" : "text-slate-300")}>{s.skipped}</td>
               </tr>
             ))}
           </tbody>
@@ -102,7 +102,7 @@ export function ImportReview({ report, onDone, onCancel }: { report: ImportRepor
           >
             <o.icon size={18} className={mode === o.v ? "text-indigo-600" : "text-slate-400"} />
             <span>
-              <span className="block text-sm font-bold text-slate-800">{o.title}</span>
+              <span className="block text-sm font-semibold text-slate-800">{o.title}</span>
               <span className="block text-xs text-slate-500">{o.desc}</span>
             </span>
           </button>
@@ -184,14 +184,14 @@ export function ImportPanel() {
               void handle(e.dataTransfer.files[0]);
             }}
             className={cn(
-              "group flex w-full flex-col items-center justify-center gap-3 rounded-3xl border-2 border-dashed px-6 py-14 text-center transition-all",
-              drag ? "scale-[1.01] border-emerald-500 bg-emerald-50" : "border-slate-200 bg-white/60 hover:border-emerald-400 hover:bg-emerald-50/40",
+              "group flex w-full flex-col items-center justify-center gap-3 rounded-2xl border border-dashed px-6 py-14 text-center transition-colors",
+              drag ? "border-indigo-500 bg-indigo-50" : "border-slate-300 bg-white hover:border-indigo-400 hover:bg-slate-50",
             )}
           >
-            <span className={cn("flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-br from-emerald-400 to-green-600 text-white shadow-glow-emerald transition-transform duration-500", drag ? "scale-110 rotate-6" : "group-hover:-translate-y-1")}>
-              {loading ? <span className="h-6 w-6 animate-spin rounded-full border-2 border-white border-r-transparent" /> : <Upload size={26} />}
+            <span className={cn("flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-br from-emerald-400 to-green-600 text-white shadow-glow-emerald transition-transform duration-500", drag ? "scale-110 rotate-6" : "")}>
+              {loading ? <span className="h-5 w-5 animate-spin rounded-full border-2 border-indigo-700 border-r-transparent" /> : <Upload size={22} strokeWidth={1.8} />}
             </span>
-            <span className="text-base font-bold text-slate-800">{loading ? "Analizando libro…" : "Arrastra tu archivo .xlsx aquí"}</span>
+            <span className="text-base font-semibold text-slate-800">{loading ? "Analizando libro…" : "Arrastra tu archivo .xlsx aquí"}</span>
             <span className="max-w-md text-sm text-slate-500">o haz clic para seleccionarlo. Se detectan las hojas y columnas por nombre (sin importar el orden), se validan los datos y verás un informe antes de aplicar.</span>
           </button>
         )}

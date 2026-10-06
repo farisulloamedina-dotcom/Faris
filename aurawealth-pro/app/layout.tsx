@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { IBM_Plex_Sans, Source_Serif_4 } from "next/font/google";
 import { Providers } from "./providers";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap" });
+const plex = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-plex", display: "swap" });
+const serif = Source_Serif_4({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-serif-display", display: "swap" });
 
 export const metadata: Metadata = {
   title: "AuraWealth Pro — Finanzas personales",
@@ -11,14 +12,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#4F46E5",
+  themeColor: "#2B3F6B",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={jakarta.variable}>
+    <html lang="es" className={`${plex.variable} ${serif.variable}`}>
       <body className="font-sans">
         <Providers>{children}</Providers>
       </body>

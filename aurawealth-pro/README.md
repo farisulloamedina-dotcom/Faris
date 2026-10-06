@@ -40,7 +40,7 @@ La navegación combina una barra lateral (contraíble y con cajón en móvil), p
 
 - **Sincronización en tiempo real:** `buildWorkbookModel(data)` se recalcula con cada cambio del estado. La misma estructura alimenta la vista previa, el exportador y el mapeo del importador.
 - **Hojas generadas:** 1 Resumen Ejecutivo · 2 Libro de Ingresos · 3 Libro de Gastos · 4 Control de Deudas · 5 Cuentas por Cobrar · 6 Metas de Ahorro · 7 Historial de Movimientos · 8 Configuración. Las hojas 7 y 8 hacen que la restauración sea **sin pérdidas**: incluyen los pagos de deudas, los cobros, los aportes a metas y las preferencias.
-- **Formato:** banda de título con el color de cada hoja, cabecera índigo `#4F46E5` con texto blanco, filas cebra, bordes finos, formatos estrictos `"$"#,##0.00`, `0.0%` y `dd/mm/yyyy`, anchos `wch` calculados según el contenido, autofiltro y fila **TOTAL** con `SUBTOTAL(109, …)`. Los KPIs del resumen usan fórmulas que referencian otras hojas (`=SUM('Control de Deudas'!E5:E7)`) y guardan el valor ya calculado.
+- **Formato:** banda de título con el color de cada hoja, cabecera azul marino `#2B3F6B` con texto blanco, filas cebra, bordes finos, formatos estrictos `"$"#,##0.00`, `0.0%` y `dd/mm/yyyy`, anchos `wch` calculados según el contenido, autofiltro y fila **TOTAL** con `SUBTOTAL(109, …)`. Los KPIs del resumen usan fórmulas que referencian otras hojas (`=SUM('Control de Deudas'!E5:E7)`) y guardan el valor ya calculado.
 - **Importación:** encuentra las hojas por nombre sin importar acentos ni mayúsculas; detecta la fila de cabecera y mapea las columnas por título, en cualquier orden. Acepta fechas seriales o en texto (`dd/mm/yyyy`, ISO), montos con separadores locales y "Sí/No". Cada fila pasa por el mismo saneador que el almacenamiento local. Antes de aplicar se muestra un informe por hoja y se elige **Reemplazar** o **Combinar** (por ID). Antes de aplicar se guarda automáticamente un snapshot.
 - **Archivo vinculado (Chrome/Edge):** con la File System Access API eliges un `.xlsx` y cada cambio se escribe en él (con 1,2 s de espera). **Releer desde Excel** importa las ediciones hechas en ese archivo. El vínculo se recuerda en IndexedDB.
 
@@ -68,6 +68,6 @@ lib/
 scripts/             prueba de ida y vuelta de Excel
 ```
 
-## Paleta
+## Diseño
 
-Índigo `#4F46E5` y cobalto `#2563EB` como colores primarios; esmeralda `#10B981` para ingresos y metas; coral `#F43F5E` para gastos y deudas; ámbar `#F59E0B` para cuentas por cobrar. Las categorías usan una paleta de 8 tonos verificada para daltonismo. Como el verde y el rojo se confunden con deuteranopía, los gastos llevan además trazo discontinuo o trama, y todas las series tienen leyenda.
+Dirección sobria, tipo banca privada: azul marino `#2B3F6B` como color principal, superficies blancas con bordes finos, IBM Plex Sans para el texto y Source Serif 4 para títulos y cifras. Para lo semántico se usan tonos apagados: verde `#2E8A62` para ingresos y metas, rojo ladrillo `#B04848` para gastos y deudas, y ocre `#B5832A` para cuentas por cobrar. Las escalas de color de Tailwind se reasignan en `app/globals.css`, así que todo el código las hereda. Las categorías usan una paleta de 8 tonos sobrios verificada para daltonismo. Como el verde y el rojo se confunden con deuteranopía, los gastos llevan además trazo discontinuo o trama, y todas las series tienen leyenda.

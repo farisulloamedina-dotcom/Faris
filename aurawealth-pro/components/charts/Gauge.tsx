@@ -13,7 +13,7 @@ export function Gauge({ value, target, label, display, size = 220 }: { value: nu
   const cx = size / 2;
   const cy = size / 2;
   const arc = Math.PI * r;
-  const color = target !== undefined ? (value >= target ? "#10B981" : value >= target * 0.6 ? "#F59E0B" : "#F43F5E") : "#4F46E5";
+  const color = target !== undefined ? (value >= target ? "#2E8A62" : value >= target * 0.6 ? "#B5832A" : "#B04848") : "#2B3F6B";
   const point = (t: number) => [cx - r * Math.cos(Math.PI * t), cy - r * Math.sin(Math.PI * t)];
   const [tx, ty] = target !== undefined ? point(clamp(target, 0, 1)) : [0, 0];
   return (
@@ -21,9 +21,9 @@ export function Gauge({ value, target, label, display, size = 220 }: { value: nu
       <svg width={size} height={size / 2 + 12} viewBox={`0 0 ${size} ${size / 2 + 12}`}>
         <defs>
           <linearGradient id="gauge-track" x1="0" x2="1">
-            <stop offset="0%" stopColor="#FFE4E6" />
-            <stop offset="50%" stopColor="#FEF3C7" />
-            <stop offset="100%" stopColor="#D1FAE5" />
+            <stop offset="0%" stopColor="#F5DEDE" />
+            <stop offset="50%" stopColor="#F5EAD0" />
+            <stop offset="100%" stopColor="#D9EEE3" />
           </linearGradient>
         </defs>
         <path d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`} stroke="url(#gauge-track)" strokeWidth={16} fill="none" strokeLinecap="round" />
@@ -41,7 +41,7 @@ export function Gauge({ value, target, label, display, size = 220 }: { value: nu
         {target !== undefined && <circle cx={tx} cy={ty} r={6} fill="#fff" stroke="#0F172A" strokeWidth={2.5} />}
       </svg>
       <div className="absolute inset-x-0 bottom-0 flex flex-col items-center">
-        <span className="tabular text-3xl font-extrabold tracking-tight" style={{ color }}>
+        <span className="tabular font-serif text-3xl font-semibold tracking-tight" style={{ color }}>
           {display}
         </span>
         <span className="text-xs font-semibold text-slate-500">{label}</span>

@@ -2,52 +2,108 @@
 
 /* ============================================================================
    AuraWealth Pro — Sistema visual
-   Luminoso, vibrante, glassmorphism sutil, Bento Grid y sombras flotantes.
+   Dirección: banca privada. Azul marino institucional, superficies blancas con
+   bordes finos, tipografía serif para títulos y cifras, color semántico apagado.
+   Las escalas de Tailwind (indigo, emerald, rose, amber, blue, violet) se
+   reasignan aquí a tonos sobrios para que todo el código las herede.
    ========================================================================== */
 
 @theme {
-  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-plex), "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif-display), "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --color-canvas: #f8fafc;
-  --color-ink: #0f172a;
-  --color-brand: #4f46e5;
-  --color-cobalt: #2563eb;
-  --color-success: #10b981;
-  --color-danger: #f43f5e;
-  --color-warning: #f59e0b;
+  /* Neutros */
+  --color-canvas: #f6f7f9;
+  --color-ink: #111827;
+  --color-line: #e4e7ec;
+  --color-brand: #2b3f6b;
 
-  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 12px 32px -16px rgb(15 23 42 / 0.14);
-  --shadow-float: 0 18px 40px -18px rgb(79 70 229 / 0.35), 0 4px 12px -4px rgb(15 23 42 / 0.06);
-  --shadow-glow-indigo: 0 10px 30px -10px rgb(79 70 229 / 0.55);
-  --shadow-glow-emerald: 0 10px 30px -10px rgb(16 185 129 / 0.5);
-  --shadow-glow-rose: 0 10px 30px -10px rgb(244 63 94 / 0.5);
+  /* Azul marino (principal) */
+  --color-indigo-50: #f3f5f9;
+  --color-indigo-100: #e6eaf2;
+  --color-indigo-200: #cbd3e3;
+  --color-indigo-300: #a3b0cb;
+  --color-indigo-400: #7586ab;
+  --color-indigo-500: #4d628f;
+  --color-indigo-600: #344a78;
+  --color-indigo-700: #2b3f6b;
+  --color-indigo-800: #1f2f50;
+  --color-indigo-900: #18243e;
 
-  --animate-float: float 6s ease-in-out infinite;
+  /* Azul acero (secundario) */
+  --color-blue-50: #f1f4f9;
+  --color-blue-100: #e1e8f2;
+  --color-blue-200: #c2d1e6;
+  --color-blue-300: #98b2d5;
+  --color-blue-400: #6b8fc0;
+  --color-blue-500: #4c73aa;
+  --color-blue-600: #3d5a9e;
+  --color-blue-700: #31497f;
+
+  /* Verde (ingresos, metas, positivo) */
+  --color-emerald-50: #eff7f3;
+  --color-emerald-100: #d9eee3;
+  --color-emerald-200: #b3dcc7;
+  --color-emerald-300: #84c3a4;
+  --color-emerald-400: #4fa47d;
+  --color-emerald-500: #2e8a62;
+  --color-emerald-600: #23744f;
+  --color-emerald-700: #1d5e41;
+  --color-emerald-800: #194b35;
+
+  /* Rojo ladrillo (gastos, deudas, crítico) */
+  --color-rose-50: #fbf1f1;
+  --color-rose-100: #f5dede;
+  --color-rose-200: #ebbdbd;
+  --color-rose-300: #db9494;
+  --color-rose-400: #c76a6a;
+  --color-rose-500: #b04848;
+  --color-rose-600: #963a3a;
+  --color-rose-700: #7c3030;
+
+  /* Ocre (cuentas por cobrar, avisos) */
+  --color-amber-50: #fbf6ec;
+  --color-amber-100: #f5ead0;
+  --color-amber-200: #ead4a1;
+  --color-amber-300: #ddb96d;
+  --color-amber-400: #cc9c42;
+  --color-amber-500: #b5832a;
+  --color-amber-600: #956a20;
+  --color-amber-700: #77531b;
+
+  /* Pizarra violácea (acento analítico, muy contenido) */
+  --color-violet-50: #f2f2f6;
+  --color-violet-100: #e4e5ee;
+  --color-violet-200: #c9cadc;
+  --color-violet-500: #6b6f99;
+  --color-violet-600: #5a5f86;
+  --color-violet-700: #484c6d;
+
+  /* Radios contenidos */
+  --radius-xl: 0.5rem;
+  --radius-2xl: 0.625rem;
+  --radius-3xl: 0.875rem;
+
+  /* Sombras discretas */
+  --shadow-card: 0 1px 2px rgb(16 24 40 / 0.04);
+  --shadow-float: 0 4px 16px -6px rgb(16 24 40 / 0.12);
+  --shadow-glow-indigo: 0 1px 2px rgb(16 24 40 / 0.08);
+  --shadow-glow-emerald: 0 1px 2px rgb(16 24 40 / 0.08);
+  --shadow-glow-rose: 0 1px 2px rgb(16 24 40 / 0.08);
+
+  --animate-float: none;
   --animate-shimmer: shimmer 1.8s linear infinite;
-  --animate-pulse-ring: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  --animate-gradient: gradient-pan 8s ease infinite;
-  --animate-fade-up: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-pulse-ring: none;
+  --animate-gradient: none;
+  --animate-fade-up: fade-up 0.35s ease-out both;
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0) }
-    50% { transform: translateY(-10px) }
-  }
   @keyframes shimmer {
     from { background-position: -200% 0 }
     to { background-position: 200% 0 }
   }
-  @keyframes pulse-ring {
-    0% { box-shadow: 0 0 0 0 currentColor; opacity: 1 }
-    70% { box-shadow: 0 0 0 6px transparent; opacity: 0.9 }
-    100% { box-shadow: 0 0 0 0 transparent; opacity: 1 }
-  }
-  @keyframes gradient-pan {
-    0%, 100% { background-position: 0% 50% }
-    50% { background-position: 100% 50% }
-  }
   @keyframes fade-up {
-    from { opacity: 0; transform: translateY(12px) }
+    from { opacity: 0; transform: translateY(4px) }
     to { opacity: 1; transform: translateY(0) }
   }
 }
@@ -60,94 +116,89 @@
   body {
     background: var(--color-canvas);
     color: var(--color-ink);
-    font-feature-settings: "cv11", "ss01";
     overflow-x: clip;
   }
+  h1, h2 {
+    text-wrap: balance;
+  }
   ::selection {
-    background: rgb(79 70 229 / 0.18);
+    background: rgb(43 63 107 / 0.15);
   }
   *:focus-visible {
     outline: 2px solid var(--color-brand);
     outline-offset: 2px;
-    border-radius: 8px;
+    border-radius: 4px;
   }
-  /* Scrollbars finos */
   * {
     scrollbar-width: thin;
-    scrollbar-color: rgb(148 163 184 / 0.5) transparent;
-  }
-  input[type="number"]::-webkit-inner-spin-button {
-    opacity: 0.4;
+    scrollbar-color: rgb(156 163 175 / 0.5) transparent;
   }
 }
 
 @layer components {
-  /* Fondo de malla con manchas de color luminosas */
+  /* Fondo liso (antes manchas de color) */
   .aura-backdrop {
     position: fixed;
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background:
-      radial-gradient(40rem 28rem at 8% -8%, rgb(99 102 241 / 0.16), transparent 60%),
-      radial-gradient(36rem 26rem at 100% 0%, rgb(16 185 129 / 0.12), transparent 60%),
-      radial-gradient(30rem 24rem at 70% 110%, rgb(244 63 94 / 0.1), transparent 60%),
-      radial-gradient(28rem 20rem at 0% 100%, rgb(245 158 11 / 0.1), transparent 60%),
-      var(--color-canvas);
+    background: var(--color-canvas);
   }
 
+  /* Superficie de tarjeta: blanca, borde fino */
   .glass {
-    background: rgb(255 255 255 / 0.72);
-    backdrop-filter: blur(18px) saturate(160%);
-    -webkit-backdrop-filter: blur(18px) saturate(160%);
-    border: 1px solid rgb(255 255 255 / 0.9);
+    background: #ffffff;
+    border: 1px solid var(--color-line);
     box-shadow: var(--shadow-card);
   }
 
   .card-hover {
-    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
   .card-hover:hover {
-    transform: translateY(-3px);
+    border-color: #cfd4dc;
     box-shadow: var(--shadow-float);
-    border-color: rgb(199 210 254);
   }
 
   .skeleton {
-    background: linear-gradient(90deg, #eef2ff 0%, #f8fafc 50%, #eef2ff 100%);
+    background: linear-gradient(90deg, #eef0f3 0%, #f7f8fa 50%, #eef0f3 100%);
     background-size: 200% 100%;
     animation: var(--animate-shimmer);
   }
 
   .text-gradient {
-    background: linear-gradient(120deg, #4f46e5, #2563eb 45%, #10b981);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: var(--animate-gradient);
+    color: var(--color-ink);
   }
 
+  /* Botón principal: azul marino sólido */
   .btn-gradient {
-    background: linear-gradient(120deg, #4f46e5, #2563eb, #6366f1);
-    background-size: 200% 200%;
-    animation: var(--animate-gradient);
+    background: var(--color-indigo-700);
+  }
+  .btn-gradient:hover {
+    background: var(--color-indigo-800);
   }
 
   .tabular {
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: tabular-nums lining-nums;
   }
 
-  /* Los hijos de grid no fuerzan desbordamiento horizontal */
   .grid > * {
     min-width: 0;
   }
 
-  /* Tabla de datos */
   .data-table th {
     position: sticky;
     top: 0;
     z-index: 1;
+  }
+
+  /* Etiqueta pequeña en versalitas */
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #6b7280;
   }
 }
 
@@ -159,7 +210,6 @@
   }
 }
 
-/* Recharts: sin contorno al hacer foco con el ratón */
 .recharts-wrapper *:focus {
   outline: none;
 }

@@ -17,9 +17,9 @@ export function Heatmap({ rows, columns, values, currency }: { rows: string[]; c
       <table className="w-full border-separate border-spacing-1 text-xs">
         <thead>
           <tr>
-            <th className="sticky left-0 bg-white/80 px-2 text-left font-bold text-slate-400" />
+            <th className="sticky left-0 bg-white/80 px-2 text-left font-semibold text-slate-400" />
             {columns.map((c) => (
-              <th key={c.key} className="px-1 pb-1 text-center font-bold text-slate-400">
+              <th key={c.key} className="px-1 pb-1 text-center font-semibold text-slate-400">
                 {c.label}
               </th>
             ))}
@@ -36,7 +36,7 @@ export function Heatmap({ rows, columns, values, currency }: { rows: string[]; c
                   <td key={c.key} className="p-0">
                     <div
                       title={`${r} · ${c.label}: ${money(v, currency)}`}
-                      className={cn("group relative flex h-9 min-w-[44px] items-center justify-center rounded-lg font-bold transition-transform duration-200 hover:z-10 hover:scale-110 hover:shadow-lg", s >= 5 ? "text-white" : "text-indigo-900/70")}
+                      className={cn("group relative flex h-9 min-w-[44px] items-center justify-center rounded-lg font-semibold hover:ring-2 hover:ring-indigo-800/30", s >= 5 ? "text-white" : "text-indigo-900/70")}
                       style={{ background: s < 0 ? "#F8FAFC" : SEQUENTIAL_INDIGO[s] }}
                     >
                       <span className="tabular text-[10px]">{v > 0 ? money(v, currency, { compact: true }) : "—"}</span>

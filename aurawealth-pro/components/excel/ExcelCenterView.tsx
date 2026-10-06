@@ -68,27 +68,23 @@ function SyncTab() {
     <div className="grid gap-4 xl:grid-cols-5">
       <div className="space-y-4 xl:col-span-3">
         {/* Exportación */}
-        <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-emerald-500 via-green-600 to-teal-600 p-6 text-white shadow-float">
-          <div className="absolute -right-12 -top-12 h-48 w-48 animate-float rounded-full bg-white/15 blur-2xl" />
+        <div className="rounded-3xl bg-indigo-800 p-6 text-white">
           <div className="relative flex flex-wrap items-start justify-between gap-4">
             <div>
-              <p className="flex items-center gap-2 text-sm font-bold text-emerald-100">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
-                </span>
+              <p className="flex items-center gap-2 text-sm font-semibold text-indigo-200">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
                 Libro en memoria sincronizado · {timeAgo(log[0]?.at ?? sync.model.generatedAt, now)}
               </p>
-              <h2 className="mt-2 text-2xl font-extrabold tracking-tight">Exportación profesional a Excel</h2>
-              <p className="mt-1 max-w-lg text-sm text-emerald-50">
-                {sync.model.sheets.length} hojas independientes · {sync.totalRows} filas · cabeceras índigo, filas cebra, formatos de moneda/porcentaje/fecha, autofiltro y totales con fórmulas.
+              <h2 className="mt-2 font-serif text-[26px] font-semibold tracking-tight">Exportación profesional a Excel</h2>
+              <p className="mt-1 max-w-lg text-sm text-indigo-100">
+                {sync.model.sheets.length} hojas independientes · {sync.totalRows} filas · cabeceras azul marino, filas cebra, formatos de moneda/porcentaje/fecha, autofiltro y totales con fórmulas.
               </p>
             </div>
-            <button onClick={sync.exportNow} disabled={sync.exporting} className="flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-extrabold text-emerald-700 shadow-xl transition hover:-translate-y-0.5 active:scale-95 disabled:opacity-70">
+            <button onClick={sync.exportNow} disabled={sync.exporting} className="flex items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-medium text-indigo-800 transition-colors hover:bg-indigo-50 disabled:opacity-70">
               <Download size={18} /> {sync.exporting ? "Generando…" : "Descargar .xlsx"}
             </button>
           </div>
-          {sync.lastExportAt && <p className="relative mt-3 text-xs text-emerald-100">Última exportación {timeAgo(sync.lastExportAt, now)}</p>}
+          {sync.lastExportAt && <p className="relative mt-3 text-xs text-indigo-200">Última exportación {timeAgo(sync.lastExportAt, now)}</p>}
         </div>
 
         <Card hover={false} className="p-5">
@@ -98,17 +94,17 @@ function SyncTab() {
               const meta = SHEET_ICONS[s.name] ?? SHEET_ICONS[SHEETS.config];
               const rows = s.kind === "table" ? s.rows.length : s.kpis.length;
               return (
-                <motion.li key={s.name} layout className="group flex items-center gap-3 rounded-2xl bg-white/70 p-3 ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:shadow-card">
-                  <span className="w-5 text-center text-xs font-extrabold text-slate-300">{i + 1}</span>
-                  <span className={cn("rounded-xl p-2 transition group-hover:scale-110", meta.cls)}>
+                <motion.li key={s.name} layout className="group flex items-center gap-3 rounded-2xl bg-white/70 p-3 ring-1 ring-slate-100 transition hover:shadow-card">
+                  <span className="w-5 text-center text-xs font-semibold text-slate-300">{i + 1}</span>
+                  <span className={cn("rounded-xl p-2 transition", meta.cls)}>
                     <meta.icon size={16} />
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate text-sm font-bold text-slate-800">{s.name}</span>
+                    <span className="block truncate text-sm font-semibold text-slate-800">{s.name}</span>
                     <span className="block truncate text-[11px] text-slate-400">{s.kind === "summary" ? "KPIs + balances + totales consolidados" : `${s.columns.length} columnas`}</span>
                   </span>
                   <AnimatePresence mode="popLayout">
-                    <motion.span key={rows} initial={{ scale: 1.4, color: "#10B981" }} animate={{ scale: 1, color: "#0F172A" }} className="tabular text-sm font-extrabold">
+                    <motion.span key={rows} initial={{ color: "#2E8A62" }} animate={{ color: "#111827" }} className="tabular text-sm font-semibold">
                       {rows}
                     </motion.span>
                   </AnimatePresence>
@@ -142,7 +138,7 @@ function SyncTab() {
               <div className="flex flex-wrap items-center gap-3 rounded-2xl bg-indigo-50/70 p-4 ring-1 ring-indigo-100">
                 <FileSpreadsheet className="text-emerald-600" />
                 <div className="min-w-0 flex-1">
-                  <p className="truncate font-bold text-slate-900">{sync.linkedName}</p>
+                  <p className="truncate font-semibold text-slate-900">{sync.linkedName}</p>
                   <p className="text-xs text-slate-500">Última escritura: {timeAgo(sync.lastFileWriteAt, now)}</p>
                   {sync.linkError && <p className="text-xs font-semibold text-rose-600">{sync.linkError}</p>}
                 </div>
@@ -201,7 +197,7 @@ function SyncTab() {
                 <span className={cn("absolute -left-[27px] top-1 h-3 w-3 rounded-full ring-4 ring-white", i === 0 ? "bg-emerald-500" : "bg-indigo-300")}>
                   {i === 0 && <span className="absolute inset-0 animate-ping rounded-full bg-emerald-400" />}
                 </span>
-                <p className="text-sm font-bold text-slate-800">{e.label}</p>
+                <p className="text-sm font-semibold text-slate-800">{e.label}</p>
                 <p className="flex flex-wrap items-center gap-2 text-[11px] text-slate-400">
                   {timeAgo(e.at, now)}
                   <Badge tone="emerald">

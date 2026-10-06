@@ -12,9 +12,9 @@ export function Card({ className, hover = true, children, ...rest }: HTMLAttribu
 }
 
 const TONE_TILE = {
-  indigo: "bg-indigo-50 text-indigo-600 ring-indigo-100",
+  indigo: "bg-indigo-50 text-indigo-700 ring-indigo-100",
   emerald: "bg-emerald-50 text-emerald-600 ring-emerald-100",
-  rose: "bg-rose-50 text-rose-600 ring-rose-100",
+  rose: "bg-rose-50 text-rose-500 ring-rose-100",
   amber: "bg-amber-50 text-amber-600 ring-amber-100",
   cobalt: "bg-blue-50 text-blue-600 ring-blue-100",
   violet: "bg-violet-50 text-violet-600 ring-violet-100",
@@ -24,14 +24,14 @@ const TONE_TILE = {
 export type Tone = keyof typeof TONE_TILE;
 
 export function IconTile({ icon: Icon, tone = "indigo", size = "md", className, color }: { icon: LucideIcon; tone?: Tone; size?: "sm" | "md" | "lg"; className?: string; color?: string }) {
-  const dims = size === "sm" ? "h-8 w-8 rounded-xl" : size === "lg" ? "h-12 w-12 rounded-2xl" : "h-10 w-10 rounded-2xl";
-  const icon = size === "sm" ? 15 : size === "lg" ? 22 : 18;
+  const dims = size === "sm" ? "h-8 w-8 rounded-xl" : size === "lg" ? "h-11 w-11 rounded-xl" : "h-9 w-9 rounded-xl";
+  const icon = size === "sm" ? 15 : size === "lg" ? 20 : 17;
   return (
     <span
-      className={cn("inline-flex shrink-0 items-center justify-center ring-1 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3", dims, !color && TONE_TILE[tone], className)}
+      className={cn("inline-flex shrink-0 items-center justify-center ring-1", dims, !color && TONE_TILE[tone], className)}
       style={color ? { background: `${color}14`, color, boxShadow: `inset 0 0 0 1px ${color}26` } : undefined}
     >
-      <Icon size={icon} strokeWidth={2.2} />
+      <Icon size={icon} strokeWidth={1.8} />
     </span>
   );
 }
@@ -42,7 +42,7 @@ export function CardHeader({ title, subtitle, icon, tone = "indigo", action, cla
       <div className="flex min-w-0 items-center gap-3">
         {icon && <IconTile icon={icon} tone={tone} />}
         <div className="min-w-0">
-          <h3 className="truncate text-[15px] font-bold tracking-tight text-slate-900">{title}</h3>
+          <h3 className="truncate text-[15px] font-semibold text-ink">{title}</h3>
           {subtitle && <p className="mt-0.5 truncate text-xs text-slate-500">{subtitle}</p>}
         </div>
       </div>

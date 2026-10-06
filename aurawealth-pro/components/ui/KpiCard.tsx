@@ -8,12 +8,13 @@ import { AnimatedNumber } from "./AnimatedNumber";
 import { InfoTip } from "./InfoTip";
 import { Sparkline } from "@/components/charts/Sparkline";
 
+/** Cada tema solo aporta el color de la línea de tendencia y del icono. */
 const THEMES = {
-  indigo: { bg: "from-indigo-50 via-white to-blue-50", icon: "from-indigo-500 to-blue-500", glow: "bg-indigo-300/30", line: "#4F46E5" },
-  emerald: { bg: "from-emerald-50 via-white to-teal-50", icon: "from-emerald-400 to-teal-500", glow: "bg-emerald-300/30", line: "#10B981" },
-  rose: { bg: "from-rose-50 via-white to-pink-50", icon: "from-rose-400 to-pink-500", glow: "bg-rose-300/30", line: "#F43F5E" },
-  amber: { bg: "from-amber-50 via-white to-orange-50", icon: "from-amber-400 to-orange-500", glow: "bg-amber-300/30", line: "#F59E0B" },
-  cobalt: { bg: "from-blue-50 via-white to-cyan-50", icon: "from-blue-500 to-cyan-500", glow: "bg-blue-300/30", line: "#2563EB" },
+  indigo: { line: "#2B3F6B", icon: "text-indigo-700" },
+  emerald: { line: "#2E8A62", icon: "text-emerald-600" },
+  rose: { line: "#B04848", icon: "text-rose-500" },
+  amber: { line: "#B5832A", icon: "text-amber-600" },
+  cobalt: { line: "#3D5A9E", icon: "text-blue-600" },
 } as const;
 
 export type KpiTheme = keyof typeof THEMES;
@@ -34,7 +35,7 @@ interface Props {
   footer?: ReactNode;
 }
 
-/** Tarjeta KPI con gradiente pastel, conteo animado, variación y sparkline. */
+/** Tarjeta de indicador: etiqueta, cifra en serif, variación y línea de tendencia. */
 export function KpiCard({ label, value, format, icon: Icon, theme, delta, invertDelta, deltaLabel = "vs. mes anterior", spark, info, footer }: Props) {
   const t = THEMES[theme];
   const up = (delta ?? 0) > 0.0005;
@@ -43,33 +44,30 @@ export function KpiCard({ label, value, format, icon: Icon, theme, delta, invert
   const bad = invertDelta ? up : down;
   const DeltaIcon = up ? ArrowUpRight : down ? ArrowDownRight : Minus;
   return (
-    <div className={cn("group glass card-hover relative overflow-hidden rounded-3xl bg-gradient-to-br p-5", t.bg)}>
-      <div className={cn("absolute -right-10 -top-10 h-32 w-32 rounded-full blur-3xl transition-transform duration-700 group-hover:scale-150", t.glow)} />
-      <div className="relative flex items-start justify-between">
-        <div className="flex items-center gap-1.5 text-[13px] font-semibold text-slate-500">
+    <div className="glass card-hover relative rounded-3xl p-5">
+      <div className="flex items-center justify-between">
+        <div className="eyebrow flex items-center gap-1.5">
           {label}
           {info && <InfoTip>{info}</InfoTip>}
         </div>
-        <span className={cn("flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br text-white shadow-lg transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110", t.icon)}>
-          <Icon size={19} strokeWidth={2.3} />
-        </span>
+        <Icon size={17} strokeWidth={1.8} className={t.icon} />
       </div>
-      <AnimatedNumber value={value} format={format} className="tabular relative mt-1 block text-[26px] font-extrabold tracking-tight text-slate-900" />
-      <div className="relative mt-1 flex items-center gap-2 text-xs">
+      <AnimatedNumber value={value} format={format} className="tabular mt-3 block font-serif text-[30px] font-semibold leading-none tracking-tight text-ink" />
+      <div className="mt-3 flex items-center gap-2 text-xs">
         {delta !== undefined && (
-          <span className={cn("inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 font-bold", good ? "bg-emerald-100 text-emerald-700" : bad ? "bg-rose-100 text-rose-700" : "bg-slate-100 text-slate-500")}>
-            <DeltaIcon size={12} strokeWidth={2.8} />
+          <span className={cn("inline-flex items-center gap-0.5 font-semibold", good ? "text-emerald-600" : bad ? "text-rose-500" : "text-slate-400")}>
+            <DeltaIcon size={13} strokeWidth={2.2} />
             {pct(Math.abs(delta), 1)}
           </span>
         )}
         <span className="truncate text-slate-400">{deltaLabel}</span>
       </div>
       {spark && spark.length > 1 && (
-        <div className="relative -mx-1 mt-3">
-          <Sparkline data={spark} color={t.line} />
+        <div className="-mx-1 mt-4 border-t border-line pt-3">
+          <Sparkline data={spark} color={t.line} height={36} />
         </div>
       )}
-      {footer && <div className="relative mt-3">{footer}</div>}
+      {footer && <div className="mt-3">{footer}</div>}
     </div>
   );
 }

@@ -17,8 +17,8 @@ export function HorizontalBars({ data, currency, max }: { data: { name: string; 
               {d.name}
             </span>
             <span className="flex items-center gap-2">
-              <span className="tabular font-bold text-slate-900">{money(d.value, currency)}</span>
-              <span className="tabular w-12 rounded-md bg-slate-100 px-1.5 py-0.5 text-center text-[10px] font-bold text-slate-500">{pct(d.share)}</span>
+              <span className="tabular font-semibold text-slate-900">{money(d.value, currency)}</span>
+              <span className="tabular w-12 rounded-md bg-slate-100 px-1.5 py-0.5 text-center text-[10px] font-semibold text-slate-500">{pct(d.share)}</span>
             </span>
           </div>
           <div className="h-2.5 overflow-hidden rounded-full bg-slate-100">

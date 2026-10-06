@@ -59,9 +59,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           <Topbar onMenu={() => setMobileOpen(true)} />
         </Suspense>
         <WorkspaceTabs />
-        <main className="mx-4 mb-8 flex-1 rounded-b-3xl rounded-tr-3xl border border-white bg-white/40 shadow-card backdrop-blur-sm md:mx-8">
+        <main className="flex-1">
           {hydrated ? (
-            <div key={pathname} className="animate-fade-up space-y-6 p-4 md:p-7">
+            <div key={pathname} className="animate-fade-up mx-auto max-w-[1440px] space-y-6 px-4 py-6 md:px-8 md:py-8">
               <Suspense fallback={<LoadingScreen />}>{children}</Suspense>
             </div>
           ) : (

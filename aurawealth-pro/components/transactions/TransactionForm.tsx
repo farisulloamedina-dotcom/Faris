@@ -100,7 +100,7 @@ function TransactionFormInner({ open, onClose, kind: initialKind, editing }: Pro
               key={k}
               onClick={() => setKind(k)}
               className={cn(
-                "flex items-center justify-center gap-2 rounded-xl py-2 text-sm font-bold transition-all",
+                "flex items-center justify-center gap-2 rounded-xl py-2 text-sm font-semibold transition-all",
                 kind === k ? (k === "income" ? "bg-white text-emerald-600 shadow-sm" : "bg-white text-rose-600 shadow-sm") : "text-slate-500 hover:text-slate-700",
               )}
             >
@@ -112,7 +112,7 @@ function TransactionFormInner({ open, onClose, kind: initialKind, editing }: Pro
 
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Monto" error={error ?? undefined}>
-            <MoneyInput symbol={symbol} value={amount} onChange={(e) => (setAmount(e.target.value), setError(null))} placeholder="0.00" required className="text-base font-bold" />
+            <MoneyInput symbol={symbol} value={amount} onChange={(e) => (setAmount(e.target.value), setError(null))} placeholder="0.00" required className="text-base font-semibold" />
           </Field>
           <Field label="Fecha">
             <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
@@ -133,8 +133,8 @@ function TransactionFormInner({ open, onClose, kind: initialKind, editing }: Pro
                       title={c.hint}
                       onClick={() => setCategory(c.value)}
                       className={cn(
-                        "flex flex-col items-center gap-1.5 rounded-2xl px-2 py-3 text-xs font-bold ring-1 transition-all active:scale-95",
-                        active ? "bg-emerald-50 text-emerald-700 ring-2 ring-emerald-400" : "bg-white text-slate-600 ring-slate-200 hover:-translate-y-0.5 hover:ring-emerald-300",
+                        "flex flex-col items-center gap-1.5 rounded-2xl px-2 py-3 text-xs font-semibold ring-1 transition-all active:scale-95",
+                        active ? "bg-emerald-50 text-emerald-700 ring-2 ring-emerald-400" : "bg-white text-slate-600 ring-slate-200 hover:ring-emerald-300",
                       )}
                     >
                       <Icon size={18} />
@@ -172,7 +172,7 @@ function TransactionFormInner({ open, onClose, kind: initialKind, editing }: Pro
                         setMacro(c.value);
                         setMicro(c.micros[0]);
                       }}
-                      className={cn("flex flex-col items-center gap-1.5 rounded-2xl px-2 py-3 text-[11px] font-bold ring-1 transition-all active:scale-95", active ? "ring-2" : "bg-white text-slate-600 ring-slate-200 hover:-translate-y-0.5")}
+                      className={cn("flex flex-col items-center gap-1.5 rounded-2xl px-2 py-3 text-[11px] font-semibold ring-1 transition-all active:scale-95", active ? "ring-2" : "bg-white text-slate-600 ring-slate-200")}
                       style={active ? { background: `${c.color}12`, color: c.color, boxShadow: `inset 0 0 0 2px ${c.color}` } : undefined}
                     >
                       <Icon size={18} />

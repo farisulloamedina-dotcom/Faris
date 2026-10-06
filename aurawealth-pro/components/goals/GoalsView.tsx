@@ -43,16 +43,15 @@ function GoalCard({ goal, globalSavings, onDelete, index }: { goal: Goal; global
   return (
     <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.06 }}>
       <Card className="group relative h-full overflow-hidden">
-        <div className={cn("h-1.5 bg-gradient-to-r", c.gradient)} />
-        <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full opacity-40 blur-3xl transition-transform duration-700 group-hover:scale-125" style={{ background: c.soft }} />
+        <div className="h-[3px]" style={{ background: c.solid }} />
         <div className="relative p-5">
           <div className="flex items-start justify-between gap-3">
             <div className="flex min-w-0 items-center gap-3">
-              <span className={cn("flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br text-white shadow-lg transition duration-500 group-hover:rotate-6 group-hover:scale-110", c.gradient)}>
-                <Icon size={22} />
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl ring-1" style={{ background: c.soft, color: c.solid, boxShadow: `inset 0 0 0 1px ${c.solid}22` }}>
+                <Icon size={19} strokeWidth={1.8} />
               </span>
               <div className="min-w-0">
-                <h3 className="truncate text-base font-extrabold text-slate-900">{goal.name}</h3>
+                <h3 className="truncate text-base font-semibold text-slate-900">{goal.name}</h3>
                 <p className="text-xs text-slate-500">
                   {goal.kind} · {milestone}
                 </p>
@@ -76,14 +75,14 @@ function GoalCard({ goal, globalSavings, onDelete, index }: { goal: Goal; global
           <div className="mt-4 flex items-center gap-4">
             <Thermometer value={p} color={c.solid} height={130} />
             <div className="min-w-0 flex-1">
-              <p className="tabular text-4xl font-extrabold tracking-tight" style={{ color: c.solid }}>
+              <p className="tabular font-serif text-4xl font-semibold tracking-tight" style={{ color: c.solid }}>
                 {pct(p, 0)}
               </p>
-              <p className="tabular mt-1 text-sm font-bold text-slate-800">
+              <p className="tabular mt-1 text-sm font-semibold text-slate-800">
                 {money(goalSaved(goal), cur)} <span className="font-medium text-slate-400">/ {money(goal.target, cur)}</span>
               </p>
               <ProgressBar value={p} tone={goal.color} className="mt-3" />
-              <div className="mt-1.5 flex justify-between text-[10px] font-bold text-slate-300">
+              <div className="mt-1.5 flex justify-between text-[10px] font-semibold text-slate-300">
                 {["0", "25", "50", "75", "100"].map((m) => (
                   <span key={m} className={cn(p * 100 >= Number(m) && "text-slate-500")}>
                     {m}%
@@ -169,10 +168,10 @@ export function GoalsView() {
 
       <section className="grid gap-4 lg:grid-cols-3">
         <Card className="flex items-center gap-5 p-5 lg:col-span-2">
-          <ProgressRing value={totalTarget ? totalSaved / totalTarget : 0} size={120} stroke={12} color="#10B981" track="#ECFDF5">
+          <ProgressRing value={totalTarget ? totalSaved / totalTarget : 0} size={120} stroke={12} color="#2E8A62" track="#EFF7F3">
             <div className="text-center">
-              <p className="tabular text-2xl font-extrabold text-slate-900">{pct(totalTarget ? totalSaved / totalTarget : 0, 0)}</p>
-              <p className="text-[10px] font-bold uppercase text-slate-400">global</p>
+              <p className="tabular font-serif text-2xl font-semibold text-slate-900">{pct(totalTarget ? totalSaved / totalTarget : 0, 0)}</p>
+              <p className="text-[10px] font-semibold uppercase text-slate-400">global</p>
             </div>
           </ProgressRing>
           <div className="grid flex-1 grid-cols-2 gap-3 sm:grid-cols-4">
@@ -184,22 +183,21 @@ export function GoalsView() {
             ].map((x) => (
               <div key={x.l} className="rounded-2xl bg-white/70 p-3 ring-1 ring-slate-100">
                 <x.icon size={16} className={x.c} />
-                <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">{x.l}</p>
-                <p className="tabular text-base font-extrabold text-slate-900">{x.v}</p>
+                <p className="mt-1 text-[10px] font-semibold uppercase tracking-wider text-slate-400">{x.l}</p>
+                <p className="tabular text-base font-semibold text-slate-900">{x.v}</p>
               </div>
             ))}
           </div>
         </Card>
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-amber-400 via-rose-400 to-fuchsia-500 p-5 text-white shadow-float">
-          <div className="absolute -right-8 -top-8 h-32 w-32 animate-float rounded-full bg-white/20 blur-xl" />
-          <Flame size={22} />
-          <p className="mt-3 text-lg font-extrabold leading-snug">{quote}</p>
+        <div className="rounded-3xl bg-indigo-800 p-6 text-white">
+          <p className="eyebrow text-indigo-200!">Principio de ahorro</p>
+          <p className="mt-3 font-serif text-xl font-medium leading-snug">{quote}</p>
           {closest && (
-            <p className="mt-3 text-sm text-white/90">
+            <p className="mt-4 border-t border-white/15 pt-3 text-sm text-indigo-100">
               Estás a <b>{money(goalRemaining(closest), cur)}</b> de completar «{closest.name}».
             </p>
           )}
-          <p className="mt-2 text-xs text-white/80">Aportes planificados: {money(plannedMonthly, cur)}/mes</p>
+          <p className="mt-1.5 text-xs text-indigo-200">Aportes planificados: {money(plannedMonthly, cur)}/mes</p>
         </div>
       </section>
 
@@ -223,7 +221,7 @@ export function GoalsView() {
                 <XAxis type="number" tick={AXIS_TICK} axisLine={false} tickLine={false} tickFormatter={(v) => money(v, cur, { compact: true })} />
                 <YAxis type="category" dataKey="name" tick={{ ...AXIS_TICK, fill: "#475569" }} axisLine={false} tickLine={false} width={110} />
                 <Tooltip cursor={BAR_CURSOR} content={<ChartTooltip currency={cur} />} />
-                <Bar dataKey="Ahorrado" stackId="g" fill="#10B981" stroke="#fff" strokeWidth={2} radius={[6, 0, 0, 6]} />
+                <Bar dataKey="Ahorrado" stackId="g" fill="#2E8A62" stroke="#fff" strokeWidth={2} radius={[6, 0, 0, 6]} />
                 <Bar dataKey="Restante" stackId="g" fill="#E2E8F0" stroke="#fff" strokeWidth={2} radius={[0, 6, 6, 0]} />
               </BarChart>
             </ResponsiveContainer>

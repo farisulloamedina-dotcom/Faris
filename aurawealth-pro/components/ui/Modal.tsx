@@ -50,32 +50,31 @@ export function Modal({ open, onClose, title, subtitle, icon, children, footer, 
     <AnimatePresence>
       {open && (
         <div className="fixed inset-0 z-[80] flex items-end justify-center p-0 sm:items-center sm:p-6">
-          <motion.div className="absolute inset-0 bg-slate-900/30 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} />
+          <motion.div className="absolute inset-0 bg-slate-900/40" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} />
           <motion.div
             ref={panelRef}
             role="dialog"
             aria-modal="true"
-            className={cn("relative flex max-h-[92vh] w-full flex-col overflow-hidden rounded-t-3xl bg-white shadow-2xl ring-1 ring-slate-200/70 sm:rounded-3xl", SIZES[size])}
+            className={cn("relative flex max-h-[92vh] w-full flex-col overflow-hidden rounded-t-3xl bg-white shadow-2xl ring-1 ring-line sm:rounded-2xl", SIZES[size])}
             initial={{ opacity: 0, y: 40, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 420, damping: 34 }}
           >
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-indigo-50/80 to-transparent" />
             <div className="relative flex items-start justify-between gap-4 px-6 pb-3 pt-5">
               <div className="flex items-center gap-3">
                 {icon}
                 <div>
-                  <h2 className="text-lg font-extrabold tracking-tight text-slate-900">{title}</h2>
+                  <h2 className="font-serif text-xl font-semibold tracking-tight text-ink">{title}</h2>
                   {subtitle && <p className="text-sm text-slate-500">{subtitle}</p>}
                 </div>
               </div>
-              <button onClick={onClose} className="rounded-xl p-2 text-slate-400 transition hover:rotate-90 hover:bg-slate-100 hover:text-slate-700" aria-label="Cerrar">
+              <button onClick={onClose} className="rounded-xl p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700" aria-label="Cerrar">
                 <X size={18} />
               </button>
             </div>
             <div className="relative flex-1 overflow-y-auto px-6 pb-6 pt-2">{children}</div>
-            {footer && <div className="relative flex flex-wrap items-center justify-end gap-2 border-t border-slate-100 bg-slate-50/70 px-6 py-4">{footer}</div>}
+            {footer && <div className="relative flex flex-wrap items-center justify-end gap-2 border-t border-line bg-slate-50 px-6 py-4">{footer}</div>}
           </motion.div>
         </div>
       )}

@@ -26,7 +26,7 @@ export type BadgeTone = keyof typeof TONES;
 /** Badge de estado; `pulse` añade un punto animado (estados vivos o urgentes). */
 export function Badge({ tone = "slate", pulse, dot, icon, children, className }: { tone?: BadgeTone; pulse?: boolean; dot?: boolean; icon?: ReactNode; children: ReactNode; className?: string }) {
   return (
-    <span className={cn("inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-[11px] font-semibold ring-1 ring-inset", TONES[tone], className)}>
+    <span className={cn("inline-flex items-center gap-1.5 whitespace-nowrap rounded-md px-2 py-0.5 text-[11px] font-medium ring-1 ring-inset", TONES[tone], className)}>
       {(dot || pulse) && <span className={cn("h-1.5 w-1.5 rounded-full", DOTS[tone], pulse && "animate-pulse-ring")} />}
       {icon}
       {children}

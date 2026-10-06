@@ -47,33 +47,33 @@ import type {
 /* ---------------------------------- Colores --------------------------------- */
 
 export const BRAND = {
-  indigo: "#4F46E5",
-  cobalt: "#2563EB",
-  emerald: "#10B981",
-  rose: "#F43F5E",
-  amber: "#F59E0B",
-  ink: "#0F172A",
-  muted: "#64748B",
-  grid: "#E2E8F0",
+  indigo: "#2B3F6B", // azul marino institucional (color principal)
+  cobalt: "#3D5A9E",
+  emerald: "#2E8A62", // ingresos / metas
+  rose: "#B04848", // gastos / deudas
+  amber: "#B5832A", // cuentas por cobrar / avisos
+  ink: "#111827",
+  muted: "#6B7280",
+  grid: "#E5E7EB",
 } as const;
 
 /**
- * Paleta categórica de 8 tonos validada (separación CVD ≥ 9 ΔE entre vecinos,
+ * Paleta categórica sobria de 8 tonos validada (separación CVD ≥ 9,9 ΔE entre vecinos,
  * piso visión normal ≥ 19 ΔE). Se asigna en orden fijo, nunca ciclado.
  */
 export const CATEGORICAL = [
-  "#4F46E5",
-  "#EB6834",
-  "#1BAF7A",
-  "#EDA100",
-  "#E87BA4",
-  "#008300",
-  "#2A78D6",
-  "#E34948",
+  "#3D5A9E",
+  "#C46A3A",
+  "#1A9480",
+  "#C29A2A",
+  "#B0628E",
+  "#4E7F2E",
+  "#5E93CF",
+  "#B24848",
 ] as const;
 
 /** Escala secuencial índigo (claro → oscuro) para mapas de calor. */
-export const SEQUENTIAL_INDIGO = ["#EEF2FF", "#E0E7FF", "#C7D2FE", "#A5B4FC", "#818CF8", "#6366F1", "#4F46E5", "#4338CA", "#3730A3"];
+export const SEQUENTIAL_INDIGO = ["#F3F5F9", "#E6EAF2", "#CBD3E3", "#A3B0CB", "#7586AB", "#4D628F", "#344A78", "#283B63", "#1F2F50"];
 
 /* -------------------------------- Ingresos ---------------------------------- */
 
@@ -138,12 +138,12 @@ export const GOAL_ICONS: Record<GoalIconKey, LucideIcon> = {
 };
 
 export const GOAL_COLORS: Record<GoalColor, { solid: string; soft: string; gradient: string; text: string }> = {
-  indigo: { solid: "#4F46E5", soft: "#EEF2FF", gradient: "from-indigo-500 to-violet-500", text: "text-indigo-600" },
-  emerald: { solid: "#10B981", soft: "#ECFDF5", gradient: "from-emerald-400 to-teal-500", text: "text-emerald-600" },
-  amber: { solid: "#F59E0B", soft: "#FFFBEB", gradient: "from-amber-400 to-orange-500", text: "text-amber-600" },
-  rose: { solid: "#F43F5E", soft: "#FFF1F2", gradient: "from-rose-400 to-pink-500", text: "text-rose-600" },
-  cobalt: { solid: "#2563EB", soft: "#EFF6FF", gradient: "from-blue-500 to-cyan-500", text: "text-blue-600" },
-  violet: { solid: "#8B5CF6", soft: "#F5F3FF", gradient: "from-violet-500 to-fuchsia-500", text: "text-violet-600" },
+  indigo: { solid: "#2B3F6B", soft: "#EEF1F6", gradient: "bg-indigo-700", text: "text-indigo-700" },
+  emerald: { solid: "#2E8A62", soft: "#EFF7F3", gradient: "bg-emerald-600", text: "text-emerald-700" },
+  amber: { solid: "#B5832A", soft: "#FBF6EC", gradient: "bg-amber-500", text: "text-amber-700" },
+  rose: { solid: "#B04848", soft: "#FBF1F1", gradient: "bg-rose-500", text: "text-rose-700" },
+  cobalt: { solid: "#3D5A9E", soft: "#F1F4F9", gradient: "bg-blue-600", text: "text-blue-700" },
+  violet: { solid: "#5A5F86", soft: "#F2F2F6", gradient: "bg-violet-600", text: "text-violet-700" },
 };
 
 /* --------------------------------- Monedas ---------------------------------- */

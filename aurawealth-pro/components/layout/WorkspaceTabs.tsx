@@ -55,7 +55,7 @@ export function WorkspaceTabs() {
     });
 
   return (
-    <div className="flex items-end gap-1 overflow-x-auto px-4 pt-2 md:px-8">
+    <div className="flex items-end gap-1 overflow-x-auto border-b border-line bg-white px-4 md:px-8">
       <AnimatePresence initial={false}>
         {tabs.map((href) => {
           const item = NAV.find((n) => n.href === href)!;
@@ -69,13 +69,12 @@ export function WorkspaceTabs() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9 }}
               className={cn(
-                "group relative flex shrink-0 items-center gap-2 rounded-t-2xl border border-b-0 py-2 pl-3 pr-2 text-xs font-bold transition-colors",
-                active ? "border-white bg-white/90 text-slate-900 shadow-[0_-6px_16px_-10px_rgba(79,70,229,0.35)]" : "border-transparent text-slate-500 hover:bg-white/50 hover:text-slate-800",
+                "group relative flex shrink-0 items-center gap-2 border-b-2 py-2.5 pl-3 pr-2 text-xs font-medium transition-colors",
+                active ? "border-indigo-700 text-ink" : "border-transparent text-slate-500 hover:text-ink",
               )}
             >
-              {active && <span className={cn("absolute inset-x-3 top-0 h-0.5 rounded-full bg-gradient-to-r", item.gradient)} />}
               <Link href={href} className="flex items-center gap-2">
-                <Icon size={14} strokeWidth={2.4} />
+                <Icon size={14} strokeWidth={1.9} />
                 {item.short}
               </Link>
               {href !== "/" && !active ? (

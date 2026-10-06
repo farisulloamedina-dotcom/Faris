@@ -17,8 +17,7 @@ import {
   PiggyBank,
   Receipt,
   Scale,
-  Sparkles,
-  Target,
+    Target,
   TrendingUp,
   TriangleAlert,
   Wallet,
@@ -112,41 +111,35 @@ export function DashboardView() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-indigo-600 via-blue-600 to-indigo-500 p-6 text-white shadow-float md:p-8">
-        <div className="absolute -right-16 -top-24 h-72 w-72 animate-float rounded-full bg-white/10 blur-2xl" />
-        <div className="absolute -bottom-24 right-40 h-56 w-56 rounded-full bg-emerald-300/25 blur-3xl" />
-        <div className="absolute bottom-0 left-1/3 h-40 w-40 rounded-full bg-rose-300/20 blur-3xl" />
-        <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="flex items-center gap-2 text-sm font-semibold text-indigo-100">
-              <Sparkles size={15} /> {dateLabel(today, "long")}
-            </p>
-            <h1 className="mt-2 text-3xl font-extrabold tracking-tight md:text-4xl">
-              {greeting()}, {data.settings.userName || "bienvenido"} 👋
-            </h1>
-            <p className="mt-2 max-w-xl text-sm leading-relaxed text-indigo-100">
-              Este mes llevas <b className="text-white">{money(k.income, cur)}</b> en ingresos y <b className="text-white">{money(k.expense, cur)}</b> en gastos.{" "}
-              {urgent > 0 ? (
-                <>
-                  Tienes <b className="text-amber-200">{urgent} alerta{urgent > 1 ? "s" : ""}</b> que requieren atención.
-                </>
-              ) : (
-                "Todo está bajo control."
-              )}
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <button onClick={() => ui.openTransaction("income")} className="flex items-center gap-2 rounded-2xl bg-white/15 px-4 py-2.5 text-sm font-bold backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/25 active:scale-95">
-              <ArrowUpRight size={16} /> Ingreso
-            </button>
-            <button onClick={() => ui.openTransaction("expense")} className="flex items-center gap-2 rounded-2xl bg-white/15 px-4 py-2.5 text-sm font-bold backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/25 active:scale-95">
-              <ArrowDownRight size={16} /> Gasto
-            </button>
-            <button onClick={exportNow} disabled={exporting} className="flex items-center gap-2 rounded-2xl bg-white px-4 py-2.5 text-sm font-bold text-indigo-700 shadow-lg transition hover:-translate-y-0.5 active:scale-95 disabled:opacity-70">
-              <Download size={16} /> {exporting ? "Generando…" : "Exportar Excel"}
-            </button>
-          </div>
+      {/* Encabezado */}
+      <section className="flex flex-col gap-5 border-b border-line pb-6 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+          <p className="eyebrow">{dateLabel(today, "long")}</p>
+          <h1 className="mt-2 font-serif text-[34px] font-semibold leading-tight tracking-tight text-ink">
+            {greeting()}{data.settings.userName ? `, ${data.settings.userName}` : ""}
+          </h1>
+          <p className="mt-2 max-w-xl text-sm leading-relaxed text-slate-500">
+            Este mes registras <span className="tabular font-medium text-ink">{money(k.income, cur)}</span> en ingresos y{" "}
+            <span className="tabular font-medium text-ink">{money(k.expense, cur)}</span> en gastos.{" "}
+            {urgent > 0 ? (
+              <>
+                Hay <span className="font-medium text-rose-600">{urgent} aviso{urgent > 1 ? "s" : ""}</span> que requieren atención.
+              </>
+            ) : (
+              "No hay avisos pendientes."
+            )}
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <Button variant="secondary" icon={ArrowUpRight} onClick={() => ui.openTransaction("income")}>
+            Ingreso
+          </Button>
+          <Button variant="secondary" icon={ArrowDownRight} onClick={() => ui.openTransaction("expense")}>
+            Gasto
+          </Button>
+          <Button variant="primary" icon={Download} onClick={exportNow} loading={exporting}>
+            Exportar Excel
+          </Button>
         </div>
       </section>
 
@@ -206,8 +199,8 @@ export function DashboardView() {
             action={
               <ChartLegend
                 items={[
-                  { label: "Ingresos", color: "#10B981", value: money(series.reduce((a, s) => a + s.income, 0), cur, { compact: true }) },
-                  { label: "Gastos", color: "#F43F5E", dashed: true, value: money(series.reduce((a, s) => a + s.expense, 0), cur, { compact: true }) },
+                  { label: "Ingresos", color: "#2E8A62", value: money(series.reduce((a, s) => a + s.income, 0), cur, { compact: true }) },
+                  { label: "Gastos", color: "#B04848", dashed: true, value: money(series.reduce((a, s) => a + s.expense, 0), cur, { compact: true }) },
                 ]}
               />
             }
@@ -240,7 +233,7 @@ export function DashboardView() {
                   <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: d.color }} />
                   <span className="truncate">{d.name}</span>
                 </span>
-                <span className="tabular font-bold text-slate-900">{pct(d.value / Math.max(1, donut.reduce((a, x) => a + x.value, 0)), 0)}</span>
+                <span className="tabular font-semibold text-slate-900">{pct(d.value / Math.max(1, donut.reduce((a, x) => a + x.value, 0)), 0)}</span>
               </li>
             ))}
           </ul>
@@ -263,11 +256,11 @@ export function DashboardView() {
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="flex items-center gap-2">
-                        <span className="truncate text-sm font-bold text-slate-800">{a.title}</span>
+                        <span className="truncate text-sm font-semibold text-slate-800">{a.title}</span>
                       </span>
                       <span className="block text-xs text-slate-500">{a.detail}</span>
                     </span>
-                    <ArrowRight size={14} className="mt-1 text-slate-300 transition group-hover:translate-x-1 group-hover:text-indigo-500" />
+                    <ArrowRight size={14} className="mt-1 text-slate-300 transition group-hover:text-indigo-500" />
                   </Link>
                 </li>
               );
@@ -280,10 +273,10 @@ export function DashboardView() {
           <CardHeader title="Presupuesto del mes" subtitle={`Día ${dayOfMonth} de ${daysInMonth}`} icon={Target} tone="cobalt" />
           {budget > 0 ? (
             <div className="mt-4 flex items-center gap-5">
-              <ProgressRing value={budgetRatio} size={104} stroke={11} color={budgetRatio >= 1 ? "#F43F5E" : budgetRatio >= 0.8 ? "#F59E0B" : "#10B981"}>
+              <ProgressRing value={budgetRatio} size={104} stroke={11} color={budgetRatio >= 1 ? "#B04848" : budgetRatio >= 0.8 ? "#B5832A" : "#2E8A62"}>
                 <div className="text-center">
-                  <p className="tabular text-xl font-extrabold text-slate-900">{Math.round(budgetRatio * 100)}%</p>
-                  <p className="text-[10px] font-bold uppercase text-slate-400">usado</p>
+                  <p className="tabular font-serif text-xl font-semibold text-slate-900">{Math.round(budgetRatio * 100)}%</p>
+                  <p className="text-[10px] font-semibold uppercase text-slate-400">usado</p>
                 </div>
               </ProgressRing>
               <div className="flex-1 space-y-2 text-sm">
@@ -295,11 +288,11 @@ export function DashboardView() {
             </div>
           ) : (
             <p className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm text-slate-500">
-              Define un presupuesto mensual en <Link className="font-bold text-indigo-600" href="/excel?tab=preferencias">Preferencias</Link>.
+              Define un presupuesto mensual en <Link className="font-semibold text-indigo-600" href="/excel?tab=preferencias">Preferencias</Link>.
             </p>
           )}
           <div className="mt-5 border-t border-slate-100 pt-4">
-            <p className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-400">
+            <p className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
               <CalendarClock size={13} /> Próximos vencimientos
             </p>
             <ul className="space-y-1.5">
@@ -310,9 +303,9 @@ export function DashboardView() {
                     <IconTile icon={u.kind === "debt" ? Landmark : Receipt} tone={u.kind === "debt" ? "rose" : "amber"} size="sm" />
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-sm font-semibold text-slate-800">{u.title}</span>
-                      <span className={`block text-[11px] ${u.overdue ? "font-bold text-rose-600" : "text-slate-400"}`}>{u.overdue ? `Vencido ${relativeDays(u.date)}` : `${dateLabel(u.date)} · ${relativeDays(u.date)}`}</span>
+                      <span className={`block text-[11px] ${u.overdue ? "font-semibold text-rose-600" : "text-slate-400"}`}>{u.overdue ? `Vencido ${relativeDays(u.date)}` : `${dateLabel(u.date)} · ${relativeDays(u.date)}`}</span>
                     </span>
-                    <span className={`tabular text-sm font-bold ${u.kind === "debt" ? "text-rose-600" : "text-amber-600"}`}>
+                    <span className={`tabular text-sm font-semibold ${u.kind === "debt" ? "text-rose-600" : "text-amber-600"}`}>
                       {u.kind === "debt" ? "−" : "+"}
                       {money(u.amount, cur)}
                     </span>
@@ -325,7 +318,7 @@ export function DashboardView() {
 
         {/* Metas */}
         <Card className="p-5 lg:col-span-2 xl:col-span-1">
-          <CardHeader title="Metas en progreso" subtitle={`${money(k.goalsSaved, cur)} acumulados`} icon={PiggyBank} tone="emerald" action={<Link href="/metas" className="text-xs font-bold text-indigo-600 hover:underline">Ver todas</Link>} />
+          <CardHeader title="Metas en progreso" subtitle={`${money(k.goalsSaved, cur)} acumulados`} icon={PiggyBank} tone="emerald" action={<Link href="/metas" className="text-xs font-semibold text-indigo-600 hover:underline">Ver todas</Link>} />
           <ul className="mt-4 space-y-4">
             {data.goals.length === 0 && <EmptyState icon={Target} title="Sin metas" description="Crea tu primera meta de ahorro." action={<Button variant="soft" size="sm" onClick={() => ui.openGoal()}>Crear meta</Button>} />}
             {data.goals.slice(0, 4).map((g) => {
@@ -336,13 +329,13 @@ export function DashboardView() {
               return (
                 <li key={g.id} className="group">
                   <div className="mb-1.5 flex items-center gap-3">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-xl transition group-hover:scale-110" style={{ background: c.soft, color: c.solid }}>
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl transition" style={{ background: c.soft, color: c.solid }}>
                       <Icon size={17} />
                     </span>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center justify-between gap-2">
-                        <span className="truncate text-sm font-bold text-slate-800">{g.name}</span>
-                        <span className="tabular text-xs font-extrabold" style={{ color: c.solid }}>{pct(p, 0)}</span>
+                        <span className="truncate text-sm font-semibold text-slate-800">{g.name}</span>
+                        <span className="tabular text-xs font-semibold" style={{ color: c.solid }}>{pct(p, 0)}</span>
                       </div>
                       <div className="flex items-center justify-between text-[11px] text-slate-400">
                         <span className="tabular">{money(goalSaved(g), cur)} / {money(g.target, cur)}</span>
@@ -361,18 +354,18 @@ export function DashboardView() {
       <section className="grid gap-4 xl:grid-cols-5">
         {/* Movimientos recientes */}
         <Card className="p-5 xl:col-span-3">
-          <CardHeader title="Actividad reciente" subtitle="Últimos movimientos registrados" icon={Wallet} action={<Link href="/transacciones?tab=todos" className="text-xs font-bold text-indigo-600 hover:underline">Ver libro completo</Link>} />
+          <CardHeader title="Actividad reciente" subtitle="Últimos movimientos registrados" icon={Wallet} action={<Link href="/transacciones?tab=todos" className="text-xs font-semibold text-indigo-600 hover:underline">Ver libro completo</Link>} />
           <ul className="mt-3 divide-y divide-slate-100">
             {data.transactions.slice(0, 7).map((t) => (
               <li key={t.id}>
                 <button onClick={() => ui.openTransaction(t.kind, t)} className="group flex w-full items-center gap-3 rounded-2xl px-2 py-2.5 text-left transition hover:bg-white">
                   <TxIcon tx={t} />
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate text-sm font-bold text-slate-800">{txTitle(t)}</span>
+                    <span className="block truncate text-sm font-semibold text-slate-800">{txTitle(t)}</span>
                     <span className="block truncate text-xs text-slate-400">{txSubtitle(t)}</span>
                   </span>
                   <span className="text-right">
-                    <span className={`tabular block text-sm font-extrabold ${t.kind === "income" ? "text-emerald-600" : "text-slate-900"}`}>
+                    <span className={`tabular block text-sm font-semibold ${t.kind === "income" ? "text-emerald-600" : "text-slate-900"}`}>
                       {t.kind === "income" ? "+" : "−"}
                       {money(t.amount, cur)}
                     </span>
@@ -388,8 +381,8 @@ export function DashboardView() {
         <Card className="p-5 xl:col-span-2">
           <CardHeader title="Patrimonio neto" subtitle="Cierre de cada mes" icon={Scale} />
           <div className="mt-2 flex items-baseline gap-2">
-            <span className="tabular text-2xl font-extrabold text-slate-900">{money(k.netWorth, cur)}</span>
-            <span className={`text-xs font-bold ${k.netWorth >= (nw[0]?.netWorth ?? 0) ? "text-emerald-600" : "text-rose-600"}`}>
+            <span className="tabular font-serif text-2xl font-semibold text-slate-900">{money(k.netWorth, cur)}</span>
+            <span className={`text-xs font-semibold ${k.netWorth >= (nw[0]?.netWorth ?? 0) ? "text-emerald-600" : "text-rose-600"}`}>
               {money(k.netWorth - (nw[0]?.netWorth ?? 0), cur, { sign: true })} en 12 meses
             </span>
           </div>
@@ -403,8 +396,8 @@ export function DashboardView() {
               { l: "Deudas", v: -k.totalDebt, c: "text-rose-600" },
             ].map((x) => (
               <div key={x.l} className="rounded-2xl bg-slate-50 py-2">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">{x.l}</p>
-                <p className={`tabular text-sm font-extrabold ${x.c}`}>{money(x.v, cur, { compact: true })}</p>
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">{x.l}</p>
+                <p className={`tabular text-sm font-semibold ${x.c}`}>{money(x.v, cur, { compact: true })}</p>
               </div>
             ))}
           </div>
@@ -414,17 +407,15 @@ export function DashboardView() {
       {/* Accesos rápidos */}
       <section className="grid grid-cols-2 gap-3 md:grid-cols-4">
         {[
-          { href: "/transacciones?tab=gastos", label: "Analizar gastos", icon: ArrowDownRight, g: "from-rose-400 to-pink-500" },
-          { href: "/pasivos?tab=deudas", label: "Plan de deudas", icon: Landmark, g: "from-indigo-500 to-blue-500" },
-          { href: "/analitica", label: "Predicciones", icon: TrendingUp, g: "from-violet-500 to-fuchsia-500" },
-          { href: "/excel", label: "Centro Excel", icon: Download, g: "from-emerald-400 to-green-600" },
+          { href: "/transacciones?tab=gastos", label: "Analizar gastos", icon: ArrowDownRight },
+          { href: "/pasivos?tab=deudas", label: "Plan de deudas", icon: Landmark },
+          { href: "/analitica", label: "Proyecciones", icon: TrendingUp },
+          { href: "/excel", label: "Centro Excel", icon: Download },
         ].map((q) => (
-          <Link key={q.href} href={q.href} className="group glass card-hover flex items-center gap-3 rounded-3xl p-4">
-            <span className={`flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br ${q.g} text-white shadow-md transition group-hover:rotate-6 group-hover:scale-110`}>
-              <q.icon size={19} />
-            </span>
-            <span className="text-sm font-bold text-slate-800">{q.label}</span>
-            <ArrowRight size={15} className="ml-auto text-slate-300 transition group-hover:translate-x-1 group-hover:text-indigo-500" />
+          <Link key={q.href} href={q.href} className="group glass card-hover flex items-center gap-3 rounded-3xl px-4 py-3.5">
+            <q.icon size={17} strokeWidth={1.8} className="text-indigo-700" />
+            <span className="text-sm font-medium text-ink">{q.label}</span>
+            <ArrowRight size={15} className="ml-auto text-slate-300 transition-colors group-hover:text-indigo-700" />
           </Link>
         ))}
       </section>

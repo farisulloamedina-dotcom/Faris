@@ -240,7 +240,7 @@ function TransactionsInner() {
           <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
             <Card hover={false} className="space-y-4 p-5">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="flex items-center gap-2 text-sm font-bold text-slate-700">
+                <p className="flex items-center gap-2 text-sm font-semibold text-slate-700">
                   <Funnel size={15} className="text-indigo-500" /> Filtros avanzados
                 </p>
                 <Button size="sm" variant="ghost" icon={RotateCcw} onClick={reset}>
@@ -255,7 +255,7 @@ function TransactionsInner() {
                       setPreset(p.value);
                       setPage(0);
                     }}
-                    className={cn("rounded-xl px-3 py-1.5 text-xs font-bold ring-1 transition active:scale-95", preset === p.value ? "bg-indigo-600 text-white ring-indigo-600 shadow-glow-indigo" : "bg-white text-slate-600 ring-slate-200 hover:ring-indigo-300")}
+                    className={cn("rounded-xl px-3 py-1.5 text-xs font-semibold ring-1 transition active:scale-95", preset === p.value ? "bg-indigo-700 text-white ring-indigo-700" : "bg-white text-slate-600 ring-slate-200 hover:ring-indigo-300")}
                   >
                     {p.label}
                   </button>
@@ -269,7 +269,7 @@ function TransactionsInner() {
                 )}
               </div>
               <div>
-                <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">Categorías</p>
+                <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Categorías</p>
                 <div className="flex flex-wrap gap-1.5">
                   {catOptions.map((c) => {
                     const active = categories.includes(c);
@@ -290,7 +290,7 @@ function TransactionsInner() {
               </div>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 <div>
-                  <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">Método</p>
+                  <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Método</p>
                   <Select value={method} onChange={(e) => (setMethod(e.target.value), setPage(0))}>
                     <option value="">Todos los métodos</option>
                     {methodOptions.map((m) => (
@@ -299,7 +299,7 @@ function TransactionsInner() {
                   </Select>
                 </div>
                 <div>
-                  <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">Rango de monto</p>
+                  <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Rango de monto</p>
                   <div className="flex items-center gap-2">
                     <Input type="number" placeholder="Mín." value={minAmount} onChange={(e) => (setMinAmount(e.target.value), setPage(0))} />
                     <Input type="number" placeholder="Máx." value={maxAmount} onChange={(e) => (setMaxAmount(e.target.value), setPage(0))} />
@@ -307,13 +307,13 @@ function TransactionsInner() {
                 </div>
                 {tab !== "ingresos" && (
                   <div>
-                    <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">Prioridad</p>
+                    <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Prioridad</p>
                     <div className="flex flex-wrap gap-1.5">
                       {PRIORITIES.map((p) => (
                         <button
                           key={p.value}
                           onClick={() => toggle(priority, p.value, setPriority)}
-                          className={cn("rounded-xl px-3 py-2 text-xs font-bold ring-1 transition", priority.includes(p.value) ? "bg-slate-900 text-white ring-slate-900" : "bg-white text-slate-600 ring-slate-200")}
+                          className={cn("rounded-xl px-3 py-2 text-xs font-semibold ring-1 transition", priority.includes(p.value) ? "bg-slate-900 text-white ring-slate-900" : "bg-white text-slate-600 ring-slate-200")}
                         >
                           {p.value}
                         </button>
@@ -333,14 +333,14 @@ function TransactionsInner() {
       {/* Resumen del filtro */}
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {[
-          { label: "Ingresos filtrados", value: money(incomeTotal, cur), cls: "from-emerald-50 to-white text-emerald-600" },
-          { label: "Gastos filtrados", value: money(expenseTotal, cur), cls: "from-rose-50 to-white text-rose-600" },
-          { label: "Balance neto", value: money(incomeTotal - expenseTotal, cur, { sign: true }), cls: "from-indigo-50 to-white text-indigo-600" },
-          { label: "Movimientos · promedio", value: `${filtered.length} · ${money(filtered.length ? (incomeTotal + expenseTotal) / filtered.length : 0, cur, { compact: true })}`, cls: "from-amber-50 to-white text-amber-600" },
+          { label: "Ingresos filtrados", value: money(incomeTotal, cur), cls: "text-emerald-600" },
+          { label: "Gastos filtrados", value: money(expenseTotal, cur), cls: "text-rose-500" },
+          { label: "Balance neto", value: money(incomeTotal - expenseTotal, cur, { sign: true }), cls: "text-indigo-700" },
+          { label: "Movimientos · promedio", value: `${filtered.length} · ${money(filtered.length ? (incomeTotal + expenseTotal) / filtered.length : 0, cur, { compact: true })}`, cls: "text-ink" },
         ].map((s) => (
-          <div key={s.label} className={cn("glass rounded-2xl bg-gradient-to-br p-4", s.cls)}>
-            <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">{s.label}</p>
-            <p className="tabular mt-1 text-lg font-extrabold">{s.value}</p>
+          <div key={s.label} className={cn("glass rounded-2xl p-4", s.cls)}>
+            <p className="eyebrow">{s.label}</p>
+            <p className="tabular font-serif mt-1 text-lg font-semibold">{s.value}</p>
           </div>
         ))}
       </div>
@@ -368,7 +368,7 @@ function TransactionsInner() {
             <div className="overflow-x-auto">
               <table className="data-table w-full min-w-[760px] text-sm">
                 <thead>
-                  <tr className="bg-slate-50/90 text-left text-[11px] font-bold uppercase tracking-wider text-slate-400 backdrop-blur">
+                  <tr className="bg-slate-50/90 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-400 backdrop-blur">
                     <th className="w-10 px-4 py-3">
                       <input
                         type="checkbox"
@@ -425,7 +425,7 @@ function TransactionsInner() {
                         <div className="flex items-center gap-3">
                           <TxIcon tx={t} size={36} />
                           <div className="min-w-0">
-                            <p className="flex items-center gap-1.5 truncate font-bold text-slate-800">
+                            <p className="flex items-center gap-1.5 truncate font-semibold text-slate-800">
                               {txTitle(t)}
                               {t.recurring && <Repeat size={12} className="text-indigo-400" aria-label="Recurrente" />}
                             </p>
@@ -438,14 +438,14 @@ function TransactionsInner() {
                           <Badge tone="emerald">{t.category}</Badge>
                         ) : (
                           <span className="inline-flex flex-col">
-                            <span className="text-xs font-bold" style={{ color: expenseColor(t.macro) }}>{t.macro}</span>
+                            <span className="text-xs font-semibold" style={{ color: expenseColor(t.macro) }}>{t.macro}</span>
                             <span className="text-[11px] text-slate-400">{t.micro}</span>
                           </span>
                         )}
                       </td>
                       <td className="whitespace-nowrap px-2 py-2.5 text-xs text-slate-500">{t.method}</td>
                       <td className="px-2 py-2.5">{t.kind === "expense" ? <PriorityBadge priority={t.priority} /> : <span className="text-xs text-slate-300">—</span>}</td>
-                      <td className={cn("tabular whitespace-nowrap px-2 py-2.5 text-right font-extrabold", t.kind === "income" ? "text-emerald-600" : "text-slate-900")}>
+                      <td className={cn("tabular whitespace-nowrap px-2 py-2.5 text-right font-semibold", t.kind === "income" ? "text-emerald-600" : "text-slate-900")}>
                         {t.kind === "income" ? "+" : "−"}
                         {money(t.amount, cur)}
                       </td>

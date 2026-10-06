@@ -18,7 +18,7 @@ export function ForecastChart({ data, currency, height = 300 }: { data: Forecast
         <XAxis dataKey="label" tick={AXIS_TICK} axisLine={false} tickLine={false} dy={6} />
         <YAxis tick={AXIS_TICK} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => money(v, currency, { compact: true })} />
         {firstProjected && (
-          <ReferenceArea x1={firstProjected} x2={lastLabel} fill="#EEF2FF" fillOpacity={0.8} label={{ value: "Proyección", position: "insideTop", fill: "#6366F1", fontSize: 11, fontWeight: 700 }} />
+          <ReferenceArea x1={firstProjected} x2={lastLabel} fill="#EEF1F6" fillOpacity={0.8} label={{ value: "Proyección", position: "insideTop", fill: "#4D628F", fontSize: 11, fontWeight: 700 }} />
         )}
         <Tooltip cursor={CURSOR} content={<ChartTooltip currency={currency} />} />
         <Line type="monotone" name="Ingresos" dataKey="income" stroke={SERIES.income.color} strokeWidth={2.5} dot={{ r: 3, strokeWidth: 0, fill: SERIES.income.color }} activeDot={{ r: 5 }} animationDuration={ANIM_MS} />

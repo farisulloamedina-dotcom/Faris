@@ -61,11 +61,11 @@ function Stat({ label, value, tone, icon: Icon, info }: { label: string; value: 
     <Card className="flex items-center gap-4 p-4">
       <IconTile icon={Icon} tone={tone} size="lg" />
       <div className="min-w-0">
-        <p className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+        <p className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
           {label}
           {info && <InfoTip>{info}</InfoTip>}
         </p>
-        <p className="tabular truncate text-xl font-extrabold text-slate-900">{value}</p>
+        <p className="tabular font-serif truncate text-xl font-semibold text-slate-900">{value}</p>
       </div>
     </Card>
   );
@@ -101,7 +101,7 @@ function DebtCard({ debt, onDelete }: { debt: Debt; onDelete: () => void }) {
           <div className="flex min-w-0 items-center gap-3">
             <IconTile icon={Landmark} tone="rose" size="lg" />
             <div className="min-w-0">
-              <h3 className="truncate text-base font-extrabold text-slate-900">{debt.name}</h3>
+              <h3 className="truncate text-base font-semibold text-slate-900">{debt.name}</h3>
               <p className="truncate text-xs text-slate-500">
                 {debt.lender || "—"} · {debt.type}
               </p>
@@ -114,13 +114,13 @@ function DebtCard({ debt, onDelete }: { debt: Debt; onDelete: () => void }) {
 
         <div className="mt-5 flex items-end justify-between gap-2">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Saldo pendiente</p>
-            <p className="tabular text-2xl font-extrabold text-slate-900">{money(debt.balance, cur)}</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Saldo pendiente</p>
+            <p className="tabular font-serif text-2xl font-semibold text-slate-900">{money(debt.balance, cur)}</p>
           </div>
           <p className="text-right text-xs text-slate-500">
             de <b className="tabular text-slate-700">{money(debt.principal, cur)}</b>
             <br />
-            <span className="font-bold text-emerald-600">{pct(progress, 0)} pagado</span>
+            <span className="font-semibold text-emerald-600">{pct(progress, 0)} pagado</span>
           </p>
         </div>
         <ProgressBar value={progress} tone="emerald" size="md" className="mt-3" />
@@ -133,8 +133,8 @@ function DebtCard({ debt, onDelete }: { debt: Debt; onDelete: () => void }) {
             { l: "Próxima cuota", v: debt.balance > 0 ? dateLabel(nextPaymentDate(debt, today)).slice(0, 6) : "—" },
           ].map((x) => (
             <div key={x.l} className="rounded-xl bg-slate-50 px-2.5 py-2">
-              <p className="text-[10px] font-bold uppercase tracking-wide text-slate-400">{x.l}</p>
-              <p className="tabular text-sm font-bold text-slate-800">{x.v}</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">{x.l}</p>
+              <p className="tabular text-sm font-semibold text-slate-800">{x.v}</p>
             </div>
           ))}
         </div>
@@ -172,15 +172,15 @@ function DebtCard({ debt, onDelete }: { debt: Debt; onDelete: () => void }) {
           <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden border-t border-slate-100 bg-slate-50/60">
             <div className="grid gap-5 p-5 lg:grid-cols-2">
               <div>
-                <p className="mb-2 text-xs font-bold uppercase tracking-wider text-slate-400">Amortización proyectada · saldo</p>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">Amortización proyectada · saldo</p>
                 {base.feasible && base.rows.length ? <BalanceCurve rows={base.rows} currency={cur} height={180} /> : <p className="text-sm text-slate-400">Sin proyección disponible.</p>}
               </div>
               <div>
-                <p className="mb-2 text-xs font-bold uppercase tracking-wider text-slate-400">Capital vs. interés por año</p>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">Capital vs. interés por año</p>
                 {base.feasible && base.rows.length ? <YearlySplitBars rows={base.rows} currency={cur} height={180} /> : <p className="text-sm text-slate-400">—</p>}
               </div>
               <div className="rounded-2xl bg-white p-4 ring-1 ring-slate-200/70">
-                <p className="flex items-center gap-2 text-sm font-bold text-slate-800">
+                <p className="flex items-center gap-2 text-sm font-semibold text-slate-800">
                   <Lightbulb size={15} className="text-amber-500" /> Simulador de pago extra
                 </p>
                 <input type="range" min={0} max={Math.max(100, Math.round(debt.monthlyPayment * 2))} step={10} value={extra} onChange={(e) => setExtra(Number(e.target.value))} className="mt-3 w-full accent-indigo-600" aria-label="Pago extra mensual" />
@@ -190,12 +190,12 @@ function DebtCard({ debt, onDelete }: { debt: Debt; onDelete: () => void }) {
                 {extra > 0 && base.feasible && boosted.feasible && (
                   <div className="mt-3 grid grid-cols-2 gap-2 text-center">
                     <div className="rounded-xl bg-emerald-50 p-2.5">
-                      <p className="text-[10px] font-bold uppercase text-emerald-600">Meses ahorrados</p>
-                      <p className="tabular text-lg font-extrabold text-emerald-700">{base.months - boosted.months}</p>
+                      <p className="text-[10px] font-semibold uppercase text-emerald-600">Meses ahorrados</p>
+                      <p className="tabular font-serif text-lg font-semibold text-emerald-700">{base.months - boosted.months}</p>
                     </div>
                     <div className="rounded-xl bg-emerald-50 p-2.5">
-                      <p className="text-[10px] font-bold uppercase text-emerald-600">Intereses ahorrados</p>
-                      <p className="tabular text-lg font-extrabold text-emerald-700">{money(base.totalInterest - boosted.totalInterest, cur)}</p>
+                      <p className="text-[10px] font-semibold uppercase text-emerald-600">Intereses ahorrados</p>
+                      <p className="tabular font-serif text-lg font-semibold text-emerald-700">{money(base.totalInterest - boosted.totalInterest, cur)}</p>
                     </div>
                   </div>
                 )}
@@ -204,7 +204,7 @@ function DebtCard({ debt, onDelete }: { debt: Debt; onDelete: () => void }) {
                 </p>
               </div>
               <div className="rounded-2xl bg-white p-4 ring-1 ring-slate-200/70">
-                <p className="text-sm font-bold text-slate-800">Historial de pagos ({debt.payments.length})</p>
+                <p className="text-sm font-semibold text-slate-800">Historial de pagos ({debt.payments.length})</p>
                 <ul className="mt-2 max-h-48 space-y-1 overflow-y-auto pr-1">
                   {debt.payments.length === 0 && <li className="text-xs text-slate-400">Aún no hay pagos registrados.</li>}
                   {[...debt.payments].reverse().map((p) => (
@@ -213,7 +213,7 @@ function DebtCard({ debt, onDelete }: { debt: Debt; onDelete: () => void }) {
                       <span className="text-slate-400">
                         Cap. {money(p.principal, cur)} · Int. {money(p.interest, cur)}
                       </span>
-                      <span className="tabular font-bold text-slate-800">{money(p.amount, cur)}</span>
+                      <span className="tabular font-semibold text-slate-800">{money(p.amount, cur)}</span>
                       <button onClick={() => ui.removeWithUndo({ type: "debt/unpay", debtId: debt.id, paymentId: p.id }, "Pago anulado")} className="rounded p-1 text-slate-300 opacity-0 transition hover:text-rose-600 group-hover:opacity-100" aria-label="Anular pago">
                         <Trash size={12} />
                       </button>
@@ -265,34 +265,34 @@ function DebtsTab() {
             <CardHeader title="Estrategia de pago" subtitle="¿Qué deuda atacar primero?" icon={Lightbulb} tone="amber" />
             <div className="mt-4 space-y-4">
               <div>
-                <p className="flex items-center gap-1.5 text-xs font-bold text-rose-600">
+                <p className="flex items-center gap-1.5 text-xs font-semibold text-rose-600">
                   <Flame size={13} /> Avalancha (menor interés total)
                 </p>
                 <ol className="mt-2 space-y-1.5">
                   {avalanche.map((d, i) => (
                     <li key={d.id} className="flex items-center gap-2 text-sm">
-                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-rose-100 text-[10px] font-bold text-rose-700">{i + 1}</span>
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-rose-100 text-[10px] font-semibold text-rose-700">{i + 1}</span>
                       <span className="flex-1 truncate font-semibold text-slate-700">{d.name}</span>
-                      <span className="tabular text-xs font-bold text-slate-500">{d.annualRate}%</span>
+                      <span className="tabular text-xs font-semibold text-slate-500">{d.annualRate}%</span>
                     </li>
                   ))}
                 </ol>
               </div>
               <div>
-                <p className="flex items-center gap-1.5 text-xs font-bold text-blue-600">
+                <p className="flex items-center gap-1.5 text-xs font-semibold text-blue-600">
                   <Snowflake size={13} /> Bola de nieve (victorias rápidas)
                 </p>
                 <ol className="mt-2 space-y-1.5">
                   {snowball.map((d, i) => (
                     <li key={d.id} className="flex items-center gap-2 text-sm">
-                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-100 text-[10px] font-bold text-blue-700">{i + 1}</span>
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-100 text-[10px] font-semibold text-blue-700">{i + 1}</span>
                       <span className="flex-1 truncate font-semibold text-slate-700">{d.name}</span>
-                      <span className="tabular text-xs font-bold text-slate-500">{money(d.balance, cur, { compact: true })}</span>
+                      <span className="tabular text-xs font-semibold text-slate-500">{money(d.balance, cur, { compact: true })}</span>
                     </li>
                   ))}
                 </ol>
               </div>
-              {active.length === 0 && <p className="text-sm text-emerald-600">¡Sin deudas activas! 🎉</p>}
+              {active.length === 0 && <p className="text-sm text-emerald-600">Sin deudas activas.</p>}
             </div>
           </Card>
           {active.length > 0 && (
@@ -342,10 +342,10 @@ function ReceivablesTab() {
   const collected = data.receivables.reduce((a, r) => a + receivableCollected(r), 0);
 
   const aging = [
-    { name: "Al día", value: data.receivables.filter((r) => receivableStatus(r) !== "Cobrado" && r.dueDate >= today).reduce((a, r) => a + receivableOutstanding(r), 0), color: "#4F46E5" },
-    { name: "Vencido 1–30 d", value: overdue.filter((r) => daysBetween(r.dueDate, today) <= 30).reduce((a, r) => a + receivableOutstanding(r), 0), color: "#EDA100" },
-    { name: "Vencido 31–60 d", value: overdue.filter((r) => { const d = daysBetween(r.dueDate, today); return d > 30 && d <= 60; }).reduce((a, r) => a + receivableOutstanding(r), 0), color: "#EB6834" },
-    { name: "Vencido > 60 d", value: overdue.filter((r) => daysBetween(r.dueDate, today) > 60).reduce((a, r) => a + receivableOutstanding(r), 0), color: "#E34948" },
+    { name: "Al día", value: data.receivables.filter((r) => receivableStatus(r) !== "Cobrado" && r.dueDate >= today).reduce((a, r) => a + receivableOutstanding(r), 0), color: "#2B3F6B" },
+    { name: "Vencido 1–30 d", value: overdue.filter((r) => daysBetween(r.dueDate, today) <= 30).reduce((a, r) => a + receivableOutstanding(r), 0), color: "#C29A2A" },
+    { name: "Vencido 31–60 d", value: overdue.filter((r) => { const d = daysBetween(r.dueDate, today); return d > 30 && d <= 60; }).reduce((a, r) => a + receivableOutstanding(r), 0), color: "#C46A3A" },
+    { name: "Vencido > 60 d", value: overdue.filter((r) => daysBetween(r.dueDate, today) > 60).reduce((a, r) => a + receivableOutstanding(r), 0), color: "#B24848" },
   ].filter((x) => x.value > 0);
 
   return (
@@ -393,7 +393,7 @@ function ReceivablesTab() {
                       <IconTile icon={late ? TriangleAlert : Receipt} tone={late ? "rose" : status === "Cobrado" ? "emerald" : "amber"} size="lg" />
                       <div className="min-w-[180px] flex-1">
                         <div className="flex flex-wrap items-center gap-2">
-                          <p className="font-extrabold text-slate-900">{r.debtor}</p>
+                          <p className="font-semibold text-slate-900">{r.debtor}</p>
                           <Badge tone={STATUS_TONE[status]} dot>
                             {status}
                           </Badge>
@@ -408,11 +408,11 @@ function ReceivablesTab() {
                         </p>
                         <div className="mt-2 flex items-center gap-2">
                           <ProgressBar value={progress} tone={status === "Cobrado" ? "emerald" : "amber"} size="sm" className="max-w-[220px]" />
-                          <span className="text-[11px] font-bold text-slate-400">{pct(progress, 0)}</span>
+                          <span className="text-[11px] font-semibold text-slate-400">{pct(progress, 0)}</span>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="tabular text-lg font-extrabold text-slate-900">{money(receivableOutstanding(r), cur)}</p>
+                        <p className="tabular font-serif text-lg font-semibold text-slate-900">{money(receivableOutstanding(r), cur)}</p>
                         <p className="text-[11px] text-slate-400">
                           de {money(r.amount, cur)} · {status === "Cobrado" ? "completado" : `vence ${relativeDays(r.dueDate, today)}`}
                         </p>
@@ -436,7 +436,7 @@ function ReceivablesTab() {
                       {expanded === r.id && (
                         <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
                           <div className="ml-16 mt-3 rounded-2xl bg-white p-3 ring-1 ring-slate-200/70">
-                            <p className="text-xs font-bold text-slate-600">
+                            <p className="text-xs font-semibold text-slate-600">
                               Emitida {dateLabel(r.issueDate)} · Vence {dateLabel(r.dueDate)} {r.notes && `· ${r.notes}`}
                             </p>
                             <ul className="mt-2 space-y-1">
@@ -466,7 +466,7 @@ function ReceivablesTab() {
 
         <Card className="p-5">
           <CardHeader title="Antigüedad de saldos" subtitle="Monto pendiente por antigüedad" icon={Clock} tone="amber" />
-          <div className="mt-4">{aging.length ? <DonutChart data={aging} currency={cur} centerLabel="Pendiente" height={200} /> : <p className="text-sm text-emerald-600">Todo cobrado. 🎉</p>}</div>
+          <div className="mt-4">{aging.length ? <DonutChart data={aging} currency={cur} centerLabel="Pendiente" height={200} /> : <p className="text-sm text-emerald-600">Todo cobrado.</p>}</div>
         </Card>
       </div>
 

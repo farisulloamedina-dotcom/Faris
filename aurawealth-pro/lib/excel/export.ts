@@ -16,39 +16,39 @@ type CellObject = import("xlsx-js-style").CellObject;
 /* --------------------------------- Estilos --------------------------------- */
 
 const TONES: Record<SheetTone, { solid: string; soft: string }> = {
-  indigo: { solid: "4F46E5", soft: "EEF2FF" },
-  emerald: { solid: "10B981", soft: "ECFDF5" },
-  rose: { solid: "F43F5E", soft: "FFF1F2" },
-  amber: { solid: "F59E0B", soft: "FFFBEB" },
-  cobalt: { solid: "2563EB", soft: "EFF6FF" },
+  indigo: { solid: "2B3F6B", soft: "EEF1F6" },
+  emerald: { solid: "23744F", soft: "EFF7F3" },
+  rose: { solid: "963A3A", soft: "FBF1F1" },
+  amber: { solid: "956A20", soft: "FBF6EC" },
+  cobalt: { solid: "31497F", soft: "F1F4F9" },
 };
 
-const HEADER_FILL = "4F46E5";
-const ZEBRA = "F5F7FF";
-const BORDER = "E2E8F0";
-const INK = "0F172A";
+const HEADER_FILL = "2B3F6B";
+const ZEBRA = "F6F7F9";
+const BORDER = "E4E7EC";
+const INK = "111827";
 const FONT = "Calibri";
 
 const thin = { style: "thin", color: { rgb: BORDER } };
 const borderAll = { top: thin, bottom: thin, left: thin, right: thin };
 
 const STATUS_COLORS: Record<string, string> = {
-  "Al día": "059669",
-  Liquidada: "059669",
-  Cobrado: "059669",
-  Lograda: "059669",
-  "En curso": "2563EB",
-  Parcial: "D97706",
-  Pendiente: "D97706",
-  "Fuera de ritmo": "D97706",
-  Vencida: "E11D48",
-  "Cuota insuficiente": "E11D48",
-  Necesidad: "4F46E5",
-  Gusto: "D97706",
-  Inversión: "059669",
-  "Pago de deuda": "E11D48",
-  "Cobro recibido": "D97706",
-  "Aporte a meta": "059669",
+  "Al día": "23744F",
+  Liquidada: "23744F",
+  Cobrado: "23744F",
+  Lograda: "23744F",
+  "En curso": "31497F",
+  Parcial: "956A20",
+  Pendiente: "956A20",
+  "Fuera de ritmo": "956A20",
+  Vencida: "963A3A",
+  "Cuota insuficiente": "963A3A",
+  Necesidad: "2B3F6B",
+  Gusto: "956A20",
+  Inversión: "23744F",
+  "Pago de deuda": "963A3A",
+  "Cobro recibido": "956A20",
+  "Aporte a meta": "23744F",
 };
 
 function numFmt(fmt: CellFormat, symbol: string) {
@@ -86,7 +86,7 @@ function makeCell(v: CellValue, fmt: CellFormat, symbol: string, style: Record<s
   if (fmt === "bool") return { t: "s", v: v ? "Sí" : "No", s: { ...s, alignment: { horizontal: "center", vertical: "center" } } } as CellObject;
   if (fmt === "status") {
     const text = String(v);
-    const color = text.includes("Vencido") ? "E11D48" : (STATUS_COLORS[text] ?? INK);
+    const color = text.includes("Vencido") ? "963A3A" : (STATUS_COLORS[text] ?? INK);
     return { t: "s", v: text, s: { ...s, font: { name: FONT, sz: 10, bold: true, color: { rgb: color } }, alignment: { horizontal: "center", vertical: "center" } } } as CellObject;
   }
   if (typeof v === "number") return { t: "n", v, z, s: { ...s, alignment: { horizontal: "right", vertical: "center" } } } as CellObject;
@@ -108,7 +108,7 @@ const headerStyle = {
   font: { name: FONT, sz: 11, bold: true, color: { rgb: "FFFFFF" } },
   fill: { patternType: "solid", fgColor: { rgb: HEADER_FILL } },
   alignment: { horizontal: "center", vertical: "center", wrapText: true },
-  border: { top: { style: "thin", color: { rgb: "3730A3" } }, bottom: { style: "medium", color: { rgb: "3730A3" } }, left: { style: "thin", color: { rgb: "6366F1" } }, right: { style: "thin", color: { rgb: "6366F1" } } },
+  border: { top: { style: "thin", color: { rgb: "1F2F50" } }, bottom: { style: "medium", color: { rgb: "1F2F50" } }, left: { style: "thin", color: { rgb: "4D628F" } }, right: { style: "thin", color: { rgb: "4D628F" } } },
 };
 const bodyStyle = (zebra: boolean) => ({
   font: { name: FONT, sz: 10, color: { rgb: INK } },
@@ -117,14 +117,14 @@ const bodyStyle = (zebra: boolean) => ({
   border: borderAll,
 });
 const totalStyle = {
-  font: { name: FONT, sz: 11, bold: true, color: { rgb: "312E81" } },
-  fill: { patternType: "solid", fgColor: { rgb: "E0E7FF" } },
+  font: { name: FONT, sz: 11, bold: true, color: { rgb: "1F2F50" } },
+  fill: { patternType: "solid", fgColor: { rgb: "E6EAF2" } },
   alignment: { vertical: "center" },
   border: { top: { style: "medium", color: { rgb: HEADER_FILL } }, bottom: { style: "medium", color: { rgb: HEADER_FILL } }, left: thin, right: thin },
 };
 const sectionStyle = {
-  font: { name: FONT, sz: 12, bold: true, color: { rgb: "312E81" } },
-  fill: { patternType: "solid", fgColor: { rgb: "E0E7FF" } },
+  font: { name: FONT, sz: 12, bold: true, color: { rgb: "1F2F50" } },
+  fill: { patternType: "solid", fgColor: { rgb: "E6EAF2" } },
   alignment: { horizontal: "left", vertical: "center", indent: 1 },
   border: { bottom: { style: "medium", color: { rgb: HEADER_FILL } } },
 };
@@ -256,7 +256,7 @@ function buildSummarySheet(m: SummarySheetModel, ctx: Ctx): WorkSheet {
   m.kpis.forEach((kpi: KpiItem, i) => {
     const st = bodyStyle(i % 2 === 1);
     ws[enc(r, 0)] = { t: "s", v: kpi.label, s: { ...st, font: { name: FONT, sz: 11, bold: true, color: { rgb: INK } } } } as CellObject;
-    const cell = makeCell(kpi.value, kpi.fmt, symbol, { ...st, font: { name: FONT, sz: 12, bold: true, color: { rgb: kpi.value < 0 ? "E11D48" : "312E81" } } });
+    const cell = makeCell(kpi.value, kpi.fmt, symbol, { ...st, font: { name: FONT, sz: 12, bold: true, color: { rgb: kpi.value < 0 ? "963A3A" : "1F2F50" } } });
     const range = kpi.formula ? ctx.ranges.get(`${kpi.formula.sheet}::${kpi.formula.column}`) : undefined;
     if (range) (cell as CellObject & { f?: string }).f = `SUM(${range})`;
     ws[enc(r, 1)] = cell;

@@ -6,11 +6,11 @@ type Variant = "primary" | "secondary" | "ghost" | "danger" | "success" | "soft"
 type Size = "sm" | "md" | "lg" | "icon";
 
 const VARIANTS: Record<Variant, string> = {
-  primary: "btn-gradient text-white shadow-glow-indigo hover:brightness-110",
-  secondary: "bg-white text-slate-700 ring-1 ring-slate-200 hover:ring-indigo-300 hover:text-indigo-700 shadow-sm",
-  ghost: "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
-  danger: "bg-rose-500 text-white shadow-glow-rose hover:bg-rose-600",
-  success: "bg-emerald-500 text-white shadow-glow-emerald hover:bg-emerald-600",
+  primary: "bg-indigo-700 text-white hover:bg-indigo-800",
+  secondary: "bg-white text-slate-700 ring-1 ring-line hover:bg-slate-50 hover:text-ink",
+  ghost: "text-slate-600 hover:bg-slate-100 hover:text-ink",
+  danger: "bg-rose-500 text-white hover:bg-rose-600",
+  success: "bg-emerald-600 text-white hover:bg-emerald-700",
   soft: "bg-indigo-50 text-indigo-700 hover:bg-indigo-100",
 };
 
@@ -33,14 +33,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   { variant = "secondary", size = "md", icon: Icon, iconRight: IconRight, loading, className, children, disabled, type = "button", ...rest },
   ref,
 ) {
-  const iconSize = size === "sm" ? 14 : 16;
+  const iconSize = size === "sm" ? 14 : 15;
   return (
     <button
       ref={ref}
       type={type}
       disabled={disabled || loading}
       className={cn(
-        "inline-flex select-none items-center font-semibold transition-all duration-200 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50",
+        "inline-flex select-none items-center font-medium transition-colors duration-150 disabled:pointer-events-none disabled:opacity-50",
         VARIANTS[variant],
         SIZES[size],
         className,
@@ -50,10 +50,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       {loading ? (
         <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-r-transparent" />
       ) : (
-        Icon && <Icon size={iconSize} strokeWidth={2.4} />
+        Icon && <Icon size={iconSize} strokeWidth={2} />
       )}
       {children}
-      {IconRight && <IconRight size={iconSize} strokeWidth={2.4} />}
+      {IconRight && <IconRight size={iconSize} strokeWidth={2} />}
     </button>
   );
 });

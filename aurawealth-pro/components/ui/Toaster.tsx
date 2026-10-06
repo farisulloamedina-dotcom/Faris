@@ -65,7 +65,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                   <Icon size={18} strokeWidth={2.4} />
                 </span>
                 <div className="min-w-0 flex-1 pt-0.5">
-                  <p className="text-sm font-bold text-slate-900">{t.title}</p>
+                  <p className="text-sm font-semibold text-slate-900">{t.title}</p>
                   {t.description && <p className="mt-0.5 text-xs text-slate-500">{t.description}</p>}
                   {t.action && (
                     <button
@@ -73,7 +73,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                         t.action!.onClick();
                         dismiss(t.id);
                       }}
-                      className="mt-2 inline-flex items-center gap-1 rounded-lg bg-indigo-50 px-2.5 py-1 text-xs font-bold text-indigo-700 transition hover:bg-indigo-100"
+                      className="mt-2 inline-flex items-center gap-1 rounded-lg bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700 transition hover:bg-indigo-100"
                     >
                       <Undo2 size={12} /> {t.action.label}
                     </button>

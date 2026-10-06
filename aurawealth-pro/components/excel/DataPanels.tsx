@@ -84,7 +84,7 @@ export function BackupPanel() {
                 <Database size={16} />
               </span>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-bold text-slate-800">{s.reason}</p>
+                <p className="truncate text-sm font-semibold text-slate-800">{s.reason}</p>
                 <p className="text-[11px] text-slate-400">
                   {dateLabel(s.savedAt.slice(0, 10))} {new Date(s.savedAt).toLocaleTimeString("es", { hour: "2-digit", minute: "2-digit" })} · {s.counts.transactions} mov. · {s.counts.debts} deudas · {s.counts.goals} metas
                 </p>

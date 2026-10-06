@@ -62,12 +62,12 @@ function Ratio({ label, value, hint, tone, icon: Icon, info }: { label: string; 
         <span className={cn("rounded-xl p-2", cls)}>
           <Icon size={16} strokeWidth={2.4} />
         </span>
-        <span className={cn("rounded-full px-2 py-0.5 text-[10px] font-bold", cls)}>{label2}</span>
+        <span className={cn("rounded-full px-2 py-0.5 text-[10px] font-semibold", cls)}>{label2}</span>
       </div>
-      <p className="mt-3 flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+      <p className="mt-3 flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
         {label} <InfoTip>{info}</InfoTip>
       </p>
-      <p className="tabular text-2xl font-extrabold text-slate-900">{value}</p>
+      <p className="tabular font-serif text-2xl font-semibold text-slate-900">{value}</p>
       <p className="text-xs text-slate-500">{hint}</p>
     </Card>
   );
@@ -212,8 +212,8 @@ function AnalyticsContent() {
             action={
               <ChartLegend
                 items={[
-                  { label: "Ingresos", color: "#10B981" },
-                  { label: "Gastos", color: "#F43F5E" },
+                  { label: "Ingresos", color: "#2E8A62" },
+                  { label: "Gastos", color: "#B04848" },
                   { label: "Proyección", color: "#94A3B8", dashed: true },
                 ]}
               />
@@ -224,9 +224,8 @@ function AnalyticsContent() {
           </div>
         </Card>
         <div className="grid gap-4">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-violet-600 via-indigo-600 to-blue-600 p-5 text-white shadow-float">
-            <div className="absolute -right-10 -top-10 h-36 w-36 animate-float rounded-full bg-white/15 blur-2xl" />
-            <p className="flex items-center gap-2 text-sm font-bold text-indigo-100">
+          <div className="rounded-3xl bg-indigo-800 p-5 text-white">
+            <p className="flex items-center gap-2 text-sm font-semibold text-indigo-100">
               <Sparkles size={15} /> Próximo mes (estimado)
             </p>
             <div className="mt-4 space-y-3">
@@ -237,7 +236,7 @@ function AnalyticsContent() {
                 <div key={x.l} className="flex items-center justify-between">
                   <span className="text-sm text-indigo-100">{x.l}</span>
                   <span className="text-right">
-                    <span className="tabular block text-lg font-extrabold">{money(x.v, cur)}</span>
+                    <span className="tabular font-serif block text-lg font-semibold">{money(x.v, cur)}</span>
                     <span className="block text-[11px] text-indigo-200">
                       Tendencia {trendWord(x.t.slope)} · R² {num(x.t.r2, 2)}
                     </span>
@@ -245,8 +244,8 @@ function AnalyticsContent() {
                 </div>
               ))}
               <div className="flex items-center justify-between border-t border-white/20 pt-3">
-                <span className="text-sm font-bold">Flujo neto</span>
-                <span className={cn("tabular text-2xl font-extrabold", fc.nextNet < 0 && "text-rose-200")}>{money(fc.nextNet, cur, { sign: true })}</span>
+                <span className="text-sm font-semibold">Flujo neto</span>
+                <span className={cn("tabular font-serif text-2xl font-semibold", fc.nextNet < 0 && "text-rose-200")}>{money(fc.nextNet, cur, { sign: true })}</span>
               </div>
             </div>
           </div>
@@ -272,7 +271,7 @@ function AnalyticsContent() {
       {/* Comparativas */}
       <section className="grid gap-4 xl:grid-cols-5">
         <Card className="p-5 xl:col-span-3">
-          <CardHeader title="Comparativa mensual" subtitle={`Ingresos y gastos · últimos ${months} meses`} icon={ChartColumn} action={<ChartLegend items={[{ label: "Ingresos", color: "#10B981" }, { label: "Gastos (trama)", color: "#F43F5E" }]} />} />
+          <CardHeader title="Comparativa mensual" subtitle={`Ingresos y gastos · últimos ${months} meses`} icon={ChartColumn} action={<ChartLegend items={[{ label: "Ingresos", color: "#2E8A62" }, { label: "Gastos (trama)", color: "#B04848" }]} />} />
           <div className="mt-4">
             <MonthlyBars data={series} currency={cur} height={280} />
           </div>
@@ -281,7 +280,7 @@ function AnalyticsContent() {
           <CardHeader title={`${monthLabel(curKey, true)} vs. ${monthLabel(prevKey, true)}`} subtitle="Variación por categoría (mes en curso parcial)" icon={Activity} tone="cobalt" />
           <div className="mt-4 overflow-hidden rounded-2xl ring-1 ring-slate-100">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+              <thead className="bg-slate-50 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
                 <tr>
                   <th className="px-3 py-2 text-left">Categoría</th>
                   <th className="px-3 py-2 text-right">Anterior</th>
@@ -301,9 +300,9 @@ function AnalyticsContent() {
                         </span>
                       </td>
                       <td className="tabular px-2 py-2 text-right text-slate-500">{money(r.prev, cur, { compact: true })}</td>
-                      <td className="tabular px-2 py-2 text-right font-bold text-slate-900">{money(r.now, cur, { compact: true })}</td>
+                      <td className="tabular px-2 py-2 text-right font-semibold text-slate-900">{money(r.now, cur, { compact: true })}</td>
                       <td className="px-2 py-2 text-right">
-                        <span className={cn("inline-flex whitespace-nowrap items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[11px] font-bold", r.diff > 0 ? "bg-rose-50 text-rose-600" : r.diff < 0 ? "bg-emerald-50 text-emerald-600" : "bg-slate-100 text-slate-500")}>
+                        <span className={cn("inline-flex whitespace-nowrap items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[11px] font-semibold", r.diff > 0 ? "bg-rose-50 text-rose-600" : r.diff < 0 ? "bg-emerald-50 text-emerald-600" : "bg-slate-100 text-slate-500")}>
                           <DIcon size={11} /> {pct(Math.abs(r.rel), 0)}
                         </span>
                       </td>
@@ -341,13 +340,13 @@ function AnalyticsContent() {
           <CardHeader title="Regla 50/30/20" subtitle="Tu distribución real vs. ideal" icon={Percent} tone="amber" />
           <div className="mt-5 space-y-4">
             {priorities.map((p) => {
-              const color = p.value === "Necesidad" ? "#4F46E5" : p.value === "Gusto" ? "#F59E0B" : "#10B981";
+              const color = p.value === "Necesidad" ? "#2B3F6B" : p.value === "Gusto" ? "#B5832A" : "#2E8A62";
               const over = p.value === "Inversión" ? p.share < p.ideal / 100 : p.share > p.ideal / 100;
               return (
                 <div key={p.value}>
                   <div className="mb-1.5 flex items-center justify-between text-xs">
-                    <span className="font-bold text-slate-700">{p.value}</span>
-                    <span className="tabular font-bold">
+                    <span className="font-semibold text-slate-700">{p.value}</span>
+                    <span className="tabular font-semibold">
                       <span className={over ? "text-rose-600" : "text-emerald-600"}>{pct(p.share, 0)}</span>
                       <span className="text-slate-400"> / ideal {p.value === "Inversión" ? "≥" : "≤"} {p.ideal}%</span>
                     </span>
@@ -385,7 +384,7 @@ function AnalyticsContent() {
                 <Tooltip cursor={BAR_CURSOR} content={<ChartTooltip currency={cur} />} />
                 <Bar dataKey="Gasto" radius={[6, 6, 0, 0]}>
                   {weekday.map((w) => (
-                    <Cell key={w.label} fill={w.Gasto === maxWeekday ? "#8B5CF6" : "#DDD6FE"} />
+                    <Cell key={w.label} fill={w.Gasto === maxWeekday ? "#5A5F86" : "#DCDDE8"} />
                   ))}
                 </Bar>
               </BarChart>
@@ -405,18 +404,18 @@ function AnalyticsContent() {
             const meta = expenseMeta(e.macro);
             const Icon = meta.icon;
             return (
-              <div key={m.name} className="group flex items-center gap-3 rounded-2xl bg-white/70 p-3 ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:shadow-card">
-                <span className="text-lg font-extrabold text-slate-300">#{i + 1}</span>
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl transition group-hover:scale-110" style={{ background: `${expenseColor(e.macro)}14`, color: expenseColor(e.macro) }}>
+              <div key={m.name} className="group flex items-center gap-3 rounded-2xl bg-white/70 p-3 ring-1 ring-slate-100 transition hover:shadow-card">
+                <span className="text-lg font-semibold text-slate-300">#{i + 1}</span>
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl transition" style={{ background: `${expenseColor(e.macro)}14`, color: expenseColor(e.macro) }}>
                   <Icon size={18} />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-bold text-slate-800">{m.name}</p>
+                  <p className="truncate text-sm font-semibold text-slate-800">{m.name}</p>
                   <p className="text-[11px] text-slate-400">
                     {e.macro} · {pct(m.share, 1)} del total
                   </p>
                 </div>
-                <span className="tabular text-sm font-extrabold text-slate-900">{money(m.value, cur)}</span>
+                <span className="tabular text-sm font-semibold text-slate-900">{money(m.value, cur)}</span>
               </div>
             );
           })}

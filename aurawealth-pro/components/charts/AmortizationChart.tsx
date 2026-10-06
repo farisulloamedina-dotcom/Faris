@@ -15,15 +15,15 @@ export function BalanceCurve({ rows, currency, height = 200 }: { rows: AmortRow[
       <AreaChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
         <defs>
           <linearGradient id="g-bal" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#F43F5E" stopOpacity={0.28} />
-            <stop offset="100%" stopColor="#F43F5E" stopOpacity={0.02} />
+            <stop offset="0%" stopColor="#B04848" stopOpacity={0.28} />
+            <stop offset="100%" stopColor="#B04848" stopOpacity={0.02} />
           </linearGradient>
         </defs>
         <CartesianGrid stroke={GRID_STROKE} vertical={false} />
         <XAxis dataKey="label" tick={AXIS_TICK} axisLine={false} tickLine={false} minTickGap={28} />
         <YAxis tick={AXIS_TICK} axisLine={false} tickLine={false} width={52} tickFormatter={(v) => money(v, currency, { compact: true })} />
         <Tooltip cursor={CURSOR} content={<ChartTooltip currency={currency} />} />
-        <Area type="monotone" name="Saldo pendiente" dataKey="balance" stroke="#F43F5E" strokeWidth={2.5} fill="url(#g-bal)" animationDuration={ANIM_MS} />
+        <Area type="monotone" name="Saldo pendiente" dataKey="balance" stroke="#B04848" strokeWidth={2.5} fill="url(#g-bal)" animationDuration={ANIM_MS} />
       </AreaChart>
     </ResponsiveContainer>
   );
@@ -47,8 +47,8 @@ export function YearlySplitBars({ rows, currency, height = 200 }: { rows: AmortR
         <XAxis dataKey="label" tick={AXIS_TICK} axisLine={false} tickLine={false} />
         <YAxis tick={AXIS_TICK} axisLine={false} tickLine={false} width={52} tickFormatter={(v) => money(v, currency, { compact: true })} />
         <Tooltip cursor={BAR_CURSOR} content={<ChartTooltip currency={currency} />} />
-        <Bar name="Capital" dataKey="principal" stackId="a" fill="#4F46E5" stroke="#fff" strokeWidth={2} animationDuration={ANIM_MS} />
-        <Bar name="Interés" dataKey="interest" stackId="a" fill="#F59E0B" stroke="#fff" strokeWidth={2} radius={[6, 6, 0, 0]} animationDuration={ANIM_MS} />
+        <Bar name="Capital" dataKey="principal" stackId="a" fill="#2B3F6B" stroke="#fff" strokeWidth={2} animationDuration={ANIM_MS} />
+        <Bar name="Interés" dataKey="interest" stackId="a" fill="#B5832A" stroke="#fff" strokeWidth={2} radius={[6, 6, 0, 0]} animationDuration={ANIM_MS} />
       </BarChart>
     </ResponsiveContainer>
   );

@@ -12,7 +12,7 @@ export function TxIcon({ tx, size = 40 }: { tx: Transaction; size?: number }) {
   const color = tx.kind === "income" ? BRAND.emerald : (COLOR_BY_MACRO[key] ?? "#94A3B8");
   return (
     <span
-      className="flex shrink-0 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6"
+      className="flex shrink-0 items-center justify-center rounded-2xl transition-transform duration-300"
       style={{ width: size, height: size, background: `${color}14`, color, boxShadow: `inset 0 0 0 1px ${color}22` }}
     >
       <Icon size={size * 0.45} strokeWidth={2.3} />

@@ -128,7 +128,8 @@ function GoalFormInner({ open, onClose, editing }: { open: boolean; onClose: () 
                   type="button"
                   onClick={() => setColor(c)}
                   aria-label={c}
-                  className={cn("h-9 w-9 rounded-full bg-gradient-to-br ring-offset-2 transition-transform hover:scale-110", GOAL_COLORS[c].gradient, color === c && "ring-2 ring-slate-900")}
+                  className={cn("h-8 w-8 rounded-full ring-offset-2 transition-shadow", color === c && "ring-2 ring-slate-900")}
+                  style={{ background: GOAL_COLORS[c].solid }}
                 />
               ))}
             </div>
@@ -163,7 +164,7 @@ function ContributeInner({ open, onClose, goal }: { open: boolean; onClose: () =
     const signed = mode === "Aporte" ? value : -Math.min(value, saved);
     dispatch({ type: "goal/contribute", goalId: goal.id, contribution: { id: uid("gc"), date, amount: signed } });
     const reached = mode === "Aporte" && saved < goal.target && saved + value >= goal.target;
-    toast({ tone: "success", title: reached ? `🎉 ¡Meta «${goal.name}» alcanzada!` : mode === "Aporte" ? "Aporte registrado" : "Retiro registrado", description: `Nuevo saldo: ${money(saved + signed, cur)}` });
+    toast({ tone: "success", title: reached ? `¡Meta «${goal.name}» alcanzada!` : mode === "Aporte" ? "Aporte registrado" : "Retiro registrado", description: `Nuevo saldo: ${money(saved + signed, cur)}` });
     onClose();
   }
 
@@ -193,7 +194,7 @@ function ContributeInner({ open, onClose, goal }: { open: boolean; onClose: () =
       <form id="contrib-form" onSubmit={submit} className="space-y-4">
         <Segmented options={["Aporte", "Retiro"] as const} value={mode} onChange={setMode} tones={{ Aporte: "bg-emerald-500 text-white ring-emerald-500", Retiro: "bg-rose-500 text-white ring-rose-500" }} />
         <Field label="Monto">
-          <MoneyInput symbol={currencyMeta(cur).symbol} value={amount} onChange={(e) => setAmount(e.target.value)} className="text-base font-bold" />
+          <MoneyInput symbol={currencyMeta(cur).symbol} value={amount} onChange={(e) => setAmount(e.target.value)} className="text-base font-semibold" />
         </Field>
         <Field label="Fecha">
           <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />

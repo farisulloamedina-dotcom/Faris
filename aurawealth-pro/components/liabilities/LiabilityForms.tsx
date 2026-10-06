@@ -221,19 +221,19 @@ function DebtPaymentInner({ open, onClose, debt }: { open: boolean; onClose: () 
     >
       <form id="pay-form" onSubmit={submit} className="space-y-4">
         <Field label="Monto pagado">
-          <MoneyInput symbol={currencyMeta(cur).symbol} value={amount} onChange={(e) => setAmount(e.target.value)} className="text-base font-bold" />
+          <MoneyInput symbol={currencyMeta(cur).symbol} value={amount} onChange={(e) => setAmount(e.target.value)} className="text-base font-semibold" />
         </Field>
         <Field label="Fecha">
           <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
         </Field>
         <div className="grid grid-cols-2 gap-2 text-center">
           <div className="rounded-2xl bg-amber-50 p-3 ring-1 ring-amber-100">
-            <p className="text-[11px] font-bold uppercase tracking-wide text-amber-600">Interés</p>
-            <p className="tabular text-lg font-extrabold text-amber-700">{money(split.interest, cur)}</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-amber-600">Interés</p>
+            <p className="tabular font-serif text-lg font-semibold text-amber-700">{money(split.interest, cur)}</p>
           </div>
           <div className="rounded-2xl bg-indigo-50 p-3 ring-1 ring-indigo-100">
-            <p className="text-[11px] font-bold uppercase tracking-wide text-indigo-600">Capital</p>
-            <p className="tabular text-lg font-extrabold text-indigo-700">{money(split.principal, cur)}</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-indigo-600">Capital</p>
+            <p className="tabular font-serif text-lg font-semibold text-indigo-700">{money(split.principal, cur)}</p>
           </div>
         </div>
         <Switch checked={asExpense} onChange={setAsExpense} label="Registrar también como gasto (Deudas)" />
@@ -395,7 +395,7 @@ function CollectInner({ open, onClose, receivable }: { open: boolean; onClose: (
     >
       <form id="collect-form" onSubmit={submit} className="space-y-4">
         <Field label="Monto cobrado" hint={`Máximo ${money(outstanding, cur)}`}>
-          <MoneyInput symbol={currencyMeta(cur).symbol} value={amount} max={outstanding} onChange={(e) => setAmount(e.target.value)} className="text-base font-bold" />
+          <MoneyInput symbol={currencyMeta(cur).symbol} value={amount} max={outstanding} onChange={(e) => setAmount(e.target.value)} className="text-base font-semibold" />
         </Field>
         <Field label="Fecha">
           <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />

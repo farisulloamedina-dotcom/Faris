@@ -14,8 +14,8 @@ export function NetWorthChart({ data, currency, height = 240 }: { data: { label:
       <AreaChart data={data} margin={{ top: 10, right: 8, left: 0, bottom: 0 }}>
         <defs>
           <linearGradient id="g-nw" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#4F46E5" stopOpacity={0.35} />
-            <stop offset="100%" stopColor="#2563EB" stopOpacity={0.02} />
+            <stop offset="0%" stopColor="#2B3F6B" stopOpacity={0.35} />
+            <stop offset="100%" stopColor="#3D5A9E" stopOpacity={0.02} />
           </linearGradient>
         </defs>
         <CartesianGrid stroke={GRID_STROKE} vertical={false} />
@@ -23,7 +23,7 @@ export function NetWorthChart({ data, currency, height = 240 }: { data: { label:
         <YAxis tick={AXIS_TICK} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => money(v, currency, { compact: true })} />
         {hasNegative && <ReferenceLine y={0} stroke="#CBD5E1" />}
         <Tooltip cursor={CURSOR} content={<ChartTooltip currency={currency} />} />
-        <Area type="monotone" name="Patrimonio neto" dataKey="netWorth" stroke="#4F46E5" strokeWidth={2.5} fill="url(#g-nw)" activeDot={{ r: 5, strokeWidth: 2, stroke: "#fff" }} animationDuration={ANIM_MS} />
+        <Area type="monotone" name="Patrimonio neto" dataKey="netWorth" stroke="#2B3F6B" strokeWidth={2.5} fill="url(#g-nw)" activeDot={{ r: 5, strokeWidth: 2, stroke: "#fff" }} animationDuration={ANIM_MS} />
       </AreaChart>
     </ResponsiveContainer>
   );

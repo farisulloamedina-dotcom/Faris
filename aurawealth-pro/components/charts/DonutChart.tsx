@@ -48,9 +48,9 @@ export function DonutChart({ data, currency, centerLabel = "Total", height = 240
           </PieChart>
         </ResponsiveContainer>
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">{focus ? focus.name : centerLabel}</span>
-          <span className="tabular text-lg font-extrabold text-slate-900">{money(focus ? focus.value : total, currency, { compact: (focus ? focus.value : total) >= 100000 })}</span>
-          {focus && <span className="text-xs font-bold text-indigo-600">{pct(total ? focus.value / total : 0)}</span>}
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">{focus ? focus.name : centerLabel}</span>
+          <span className="tabular font-serif text-lg font-semibold text-slate-900">{money(focus ? focus.value : total, currency, { compact: (focus ? focus.value : total) >= 100000 })}</span>
+          {focus && <span className="text-xs font-semibold text-indigo-600">{pct(total ? focus.value / total : 0)}</span>}
         </div>
       </div>
       {legend && (
@@ -67,7 +67,7 @@ export function DonutChart({ data, currency, centerLabel = "Total", height = 240
                 <span className="truncate">{d.name}</span>
               </span>
               <span className="flex items-center gap-2">
-                <span className="tabular font-bold text-slate-900">{money(d.value, currency, { compact: d.value >= 100000 })}</span>
+                <span className="tabular font-semibold text-slate-900">{money(d.value, currency, { compact: d.value >= 100000 })}</span>
                 <span className="tabular w-11 text-right font-semibold text-slate-400">{pct(total ? d.value / total : 0, 0)}</span>
               </span>
             </li>

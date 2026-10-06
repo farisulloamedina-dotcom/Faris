@@ -12,7 +12,7 @@ export function ChartLegend({ items }: { items: { label: string; color: string; 
             <span className="h-2.5 w-2.5 rounded-full" style={{ background: it.color }} />
           )}
           {it.label}
-          {it.value && <span className="tabular font-bold text-slate-900">{it.value}</span>}
+          {it.value && <span className="tabular font-semibold text-slate-900">{it.value}</span>}
         </span>
       ))}
     </div>
