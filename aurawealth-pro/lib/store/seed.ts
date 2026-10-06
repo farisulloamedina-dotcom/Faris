@@ -28,6 +28,31 @@ export const EMPTY_DATA: AppData = {
   settings: { userName: "", currency: "USD", openingBalance: 0, monthlyBudget: 0, savingsTarget: 20 },
 };
 
+/** Configuración que usa la demo; sirve para reconocerla y no borrar la del usuario. */
+const DEMO_SETTINGS = { userName: "Faris", currency: "USD", openingBalance: 8500, monthlyBudget: 3800, savingsTarget: 20 } as const;
+
+/** Los registros de la demo llevan "_seed" en su ID. */
+const isSeedId = (id: string) => id.includes("_seed");
+
+/**
+ * Quita los registros de demostración y conserva todo lo que agregó el usuario.
+ * Si la configuración sigue siendo exactamente la de la demo, se restablece.
+ */
+export function stripDemoData(data: AppData): AppData {
+  const s = data.settings;
+  const demoSettings = (Object.keys(DEMO_SETTINGS) as (keyof typeof DEMO_SETTINGS)[]).every((k) => s[k] === DEMO_SETTINGS[k]);
+  return {
+    transactions: data.transactions.filter((t) => !isSeedId(t.id)),
+    debts: data.debts.filter((d) => !isSeedId(d.id)),
+    receivables: data.receivables.filter((r) => !isSeedId(r.id)),
+    goals: data.goals.filter((g) => !isSeedId(g.id)),
+    settings: demoSettings ? EMPTY_DATA.settings : s,
+  };
+}
+
+export const hasDemoData = (data: AppData) =>
+  [...data.transactions, ...data.debts, ...data.receivables, ...data.goals].some((x) => isSeedId(x.id));
+
 export function createSeedData(ref = todayISO()): AppData {
   counter = 0;
   const rnd = mulberry32(20261006);

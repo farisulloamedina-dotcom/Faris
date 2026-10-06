@@ -13,8 +13,10 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState, type ReactNode } from "react";
 import type { AppData } from "@/lib/types";
 import { dataReducer, describeAction, type DataAction } from "./reducer";
-import { createSeedData, EMPTY_DATA } from "./seed";
-import { loadData, saveData, STORAGE_KEYS } from "./storage";
+import { EMPTY_DATA, hasDemoData, stripDemoData } from "./seed";
+import { createSnapshot, loadData, saveData, STORAGE_KEYS } from "./storage";
+
+const DEMO_CLEANUP_KEY = "aurawealth.pro.demoCleanup";
 
 const MAX_HISTORY = 40;
 const MAX_LOG = 60;
@@ -90,7 +92,7 @@ export interface PersistenceInfo {
   lastSavedAt: string | null;
   error: string | null;
   bytes: number;
-  source: "almacenado" | "demo" | "recuperado" | null;
+  source: "almacenado" | "nuevo" | "recuperado" | null;
 }
 
 interface StoreContextValue {
@@ -130,12 +132,34 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const result = loadData();
     if (result.status === "empty") {
-      rawDispatch({ type: "@hydrate", data: createSeedData(), label: "Datos de demostración cargados", source: "demo", savedAt: null });
+      // Primer uso: la app arranca en blanco (la demo se puede cargar desde Excel → Respaldo)
+      try {
+        localStorage.setItem(DEMO_CLEANUP_KEY, "1");
+      } catch {
+        /* sin almacenamiento */
+      }
+      rawDispatch({ type: "@hydrate", data: EMPTY_DATA, label: "Base de datos nueva", source: "nuevo", savedAt: null });
     } else {
+      // Limpieza única de la demo que versiones anteriores cargaban automáticamente
+      let data = result.data;
+      let cleaned = false;
+      try {
+        if (!localStorage.getItem(DEMO_CLEANUP_KEY)) {
+          if (hasDemoData(data)) {
+            createSnapshot(data, "Antes de quitar los datos de ejemplo");
+            data = stripDemoData(data);
+            saveData(data); // se guarda ya, para que una segunda hidratación no vuelva a leer la demo
+            cleaned = true;
+          }
+          localStorage.setItem(DEMO_CLEANUP_KEY, "1");
+        }
+      } catch {
+        /* sin almacenamiento: se deja tal cual */
+      }
       rawDispatch({
         type: "@hydrate",
-        data: result.data,
-        label: result.status === "recovered" ? "Recuperado desde snapshot" : "Base de datos local cargada",
+        data,
+        label: cleaned ? "Datos de ejemplo eliminados" : result.status === "recovered" ? "Recuperado desde snapshot" : "Base de datos local cargada",
         source: result.status === "recovered" ? "recuperado" : "almacenado",
         savedAt: result.savedAt,
       });

@@ -38,6 +38,9 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { Card, CardHeader } from "@/components/ui/Card";
 import { Tabs } from "@/components/ui/Tabs";
 import { InfoTip } from "@/components/ui/InfoTip";
+import { Button } from "@/components/ui/Button";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { useUI } from "@/components/layout/UIProvider";
 import { ForecastChart } from "@/components/charts/ForecastChart";
 import { MonthlyBars } from "@/components/charts/MonthlyBars";
 import { StackedAreaChart } from "@/components/charts/StackedAreaChart";
@@ -71,6 +74,38 @@ function Ratio({ label, value, hint, tone, icon: Icon, info }: { label: string; 
 }
 
 export function AnalyticsView() {
+  const data = useData();
+  if (data.transactions.length === 0) return <AnalyticsEmpty />;
+  return <AnalyticsContent />;
+}
+
+/** Sin movimientos no hay nada que analizar: se evita mostrar indicadores engañosos. */
+function AnalyticsEmpty() {
+  const ui = useUI();
+  return (
+    <>
+      <PageHeader eyebrow="Módulo 5" title="Inteligencia y Analítica Visual" description="Análisis predictivo, desgloses porcentuales, comparativas mensuales y matrices de rendimiento financiero." />
+      <EmptyState
+        icon={Brain}
+        tone="violet"
+        title="Aún no hay datos para analizar"
+        description="Registra tus ingresos y gastos; en cuanto haya movimientos verás aquí proyecciones, comparativas e indicadores."
+        action={
+          <div className="flex gap-2">
+            <Button variant="success" icon={ArrowUpRight} onClick={() => ui.openTransaction("income")}>
+              Ingreso
+            </Button>
+            <Button variant="danger" icon={ArrowDownRight} onClick={() => ui.openTransaction("expense")}>
+              Gasto
+            </Button>
+          </div>
+        }
+      />
+    </>
+  );
+}
+
+function AnalyticsContent() {
   const data = useData();
   const cur = data.settings.currency;
   const [range, setRange] = useState<"6" | "12">("12");

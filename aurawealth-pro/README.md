@@ -17,7 +17,7 @@ npm run build:artifact  # versión de un solo archivo HTML → dist-artifact/aur
 npm run lint && npm run typecheck
 ```
 
-En el primer uso se cargan datos de demostración (14 meses). Para empezar vacío, ve a **Excel → Respaldo → Empezar en blanco**.
+La app arranca en blanco y todo lo que registras se guarda en tu navegador. Si quieres ver un ejemplo, en **Excel → Respaldo → Cargar datos de demostración** hay 14 meses de datos de prueba (antes se crea un snapshot de tus datos).
 
 ### Versión de un solo archivo
 
